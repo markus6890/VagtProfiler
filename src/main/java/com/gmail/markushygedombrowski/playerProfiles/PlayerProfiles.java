@@ -1,6 +1,7 @@
 package com.gmail.markushygedombrowski.playerProfiles;
 
 
+import com.gmail.markushygedombrowski.Settings;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItemsLoader;
 import com.gmail.markushygedombrowski.deliveredItems.PLayerDeliveredItems;
