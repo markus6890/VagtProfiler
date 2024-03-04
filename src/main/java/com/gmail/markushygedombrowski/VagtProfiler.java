@@ -115,7 +115,9 @@ public class VagtProfiler extends JavaPlugin {
     public VagtFangePvpConfigManager getVagtFangePvpConfigManager() {
         return vagtFangePvpConfigManager;
     }
-
+    public ConfigManager getConfigManager() {
+        return configM;
+    }
     public static VagtProfiler getInstance() {
         return instance;
     }
