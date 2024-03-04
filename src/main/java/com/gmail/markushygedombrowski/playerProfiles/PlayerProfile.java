@@ -65,8 +65,8 @@ public class PlayerProfile {
         this.xp = xp;
     }
 
-    public double getXpToNextLvl() {
-        return Math.pow((lvl/x),y);
+    public int getXpToNextLvl() {
+        return (int) Math.pow((lvl/x),y);
     }
 
 
