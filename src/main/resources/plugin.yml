@@ -1,0 +1,7 @@
+main: com.gmail.markushygedombrowski.VagtProfiler
+name: VagtProfiler
+version: "1.0"
+softdepend:  [Vault]
+command:
+  hlvagtreload:
+    description: "reloads config"

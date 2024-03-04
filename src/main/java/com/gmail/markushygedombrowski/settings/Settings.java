@@ -1,4 +1,4 @@
-package com.gmail.markushygedombrowski;
+package com.gmail.markushygedombrowski.settings;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
