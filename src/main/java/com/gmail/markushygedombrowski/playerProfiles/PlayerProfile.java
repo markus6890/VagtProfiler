@@ -2,7 +2,9 @@ package com.gmail.markushygedombrowski.playerProfiles;
 
 
 
+import com.gmail.markushygedombrowski.LevelUpEvent;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
+import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
@@ -62,6 +64,10 @@ public class PlayerProfile {
     }
 
     public void setXp(int xp) {
+        if(xp >= getXpToNextLvl()) {
+            LevelUpEvent event = new LevelUpEvent(false, Bukkit.getPlayer(uuid), lvl, this);
+            Bukkit.getPluginManager().callEvent(event);
+        }
         this.xp = xp;
     }
 
@@ -96,7 +102,7 @@ public class PlayerProfile {
     }
 
     public int getLon() {
-        return lon;
+        return lvl * 1000 + lon;
     }
 
     public int getDeaths() {

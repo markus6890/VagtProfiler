@@ -27,14 +27,15 @@ public class VagtProfiler extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        loadConfigManager();
         saveDefaultConfig();
         loadSQL(getConfig());
         settings(getConfig());
-        loadConfigManager();
 
 
-        Reconfigurations reconfigurations = new Reconfigurations(this, settings);
-        getCommand("hlvagtreload").setExecutor(reconfigurations);
+
+        Reconfigurations reconfigurations = new Reconfigurations(this);
+        getCommand("vagtreload").setExecutor(reconfigurations);
 
         System.out.println("-----------------------------");
         System.out.println("VagtProfiler has been enabled!");

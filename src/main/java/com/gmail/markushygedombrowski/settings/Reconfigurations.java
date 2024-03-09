@@ -9,10 +9,9 @@ import org.bukkit.command.CommandSender;
 public class Reconfigurations implements CommandExecutor {
 
     private VagtProfiler plugin;
-    private Settings settings;
-    public Reconfigurations(VagtProfiler plugin, Settings settings) {
+
+    public Reconfigurations(VagtProfiler plugin ) {
         this.plugin = plugin;
-        this.settings = settings;
     }
 
 

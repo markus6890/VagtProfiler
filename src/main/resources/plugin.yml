@@ -3,5 +3,5 @@ name: VagtProfiler
 version: "1.0"
 softdepend:  [Vault]
 command:
-  hlvagtreload:
+  vagtreload:
     description: "reloads config"
