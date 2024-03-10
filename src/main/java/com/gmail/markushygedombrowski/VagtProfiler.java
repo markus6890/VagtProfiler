@@ -2,6 +2,7 @@ package com.gmail.markushygedombrowski;
 
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItemsLoader;
 import com.gmail.markushygedombrowski.deliveredItems.ItemProfileLoader;
+import com.gmail.markushygedombrowski.levels.LevelUpListener;
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfiles;
 import com.gmail.markushygedombrowski.settings.ConfigManager;
 import com.gmail.markushygedombrowski.settings.Reconfigurations;
@@ -28,8 +29,7 @@ public class VagtProfiler extends JavaPlugin {
     public void onEnable() {
         Reconfigurations reconfigurations = new Reconfigurations(this);
         getCommand("vagtreload").setExecutor(reconfigurations);
-        LevelUpListener levelUpListener = new LevelUpListener(playerProfiles);
-        getServer().getPluginManager().registerEvents(levelUpListener, this);
+
         instance = this;
         loadConfigManager();
         saveDefaultConfig();
@@ -39,7 +39,8 @@ public class VagtProfiler extends JavaPlugin {
 
 
 
-
+        LevelUpListener levelUpListener = new LevelUpListener(playerProfiles);
+        getServer().getPluginManager().registerEvents(levelUpListener, this);
         System.out.println("-----------------------------");
         System.out.println("VagtProfiler has been enabled!");
         System.out.println("-----------------------------");
@@ -82,14 +83,9 @@ public class VagtProfiler extends JavaPlugin {
         reloadConfig();
         FileConfiguration config = getConfig();
         loadConfigManager();
-        playerProfiles = new PlayerProfiles(settings, sql, deliveredItemsLoader);
-        try {
-            playerProfiles.load();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        vagtFangePvpConfigManager.load(configM.getVagtFangePvpcfg());
-        settings.load(config);
+        settings(getConfig());
+
+
 
 
     }

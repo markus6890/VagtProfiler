@@ -1,4 +1,4 @@
-package com.gmail.markushygedombrowski;
+package com.gmail.markushygedombrowski.levels;
 
 
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfile;
@@ -14,12 +14,17 @@ public class LevelUpEvent extends Event implements Cancellable {
     private int level;
     private static final HandlerList handlers = new HandlerList();
     private PlayerProfile playerProfile;
+    private int xp;
 
-    public LevelUpEvent(boolean isCancelled, Player player, int level,PlayerProfile playerProfile1) {
+    public LevelUpEvent(boolean isCancelled, Player player, int level, PlayerProfile playerProfile1, int xp) {
         this.isCancelled = isCancelled;
         this.player = player;
         this.level = level;
         this.playerProfile = playerProfile1;
+        this.xp = xp;
+    }
+    public int getXp() {
+        return xp;
     }
     public Player getPlayer() {
         return player;
