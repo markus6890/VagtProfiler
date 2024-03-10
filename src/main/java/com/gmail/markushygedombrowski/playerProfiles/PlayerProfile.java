@@ -64,11 +64,12 @@ public class PlayerProfile {
     }
 
     public void setXp(int xp) {
+        this.xp = xp;
         if(xp >= getXpToNextLvl()) {
             LevelUpEvent event = new LevelUpEvent(false, Bukkit.getPlayer(uuid), lvl, this);
             Bukkit.getPluginManager().callEvent(event);
         }
-        this.xp = xp;
+
     }
 
     public int getXpToNextLvl() {

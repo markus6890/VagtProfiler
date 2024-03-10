@@ -24,13 +24,13 @@ public class LevelUpListener implements Listener {
 
     }
     private void levelUp(Player p, PlayerProfile profile) {
-
+        profile.setLvl(profile.getLvl() + 1);
+        profile.setXp(profile.getXp() - profile.getXpToNextLvl());
         p.sendMessage("§6§l--------§a§lLevel Up!§6§l--------");
         p.sendMessage("Tillykke du er nu level §b" + profile.getLvl());
         p.sendMessage("Du skal bruge §b" + profile.getXpToNextLvl() + " §3exp til næste level");
         p.sendMessage("§6§l--------§a§lLevel Up!§6§l--------");
-        profile.setXp(profile.getXp() - profile.getXpToNextLvl());
-        profile.setLvl(profile.getLvl() + 1);
+
 
         try {
             playerProfiles.save(profile);
