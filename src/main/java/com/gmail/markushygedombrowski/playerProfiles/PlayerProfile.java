@@ -102,9 +102,8 @@ public class PlayerProfile {
     }
 
     public int getLon() {
-        return lvl * 1000 + lon;
+        return lvl * 1000 + 3000;
     }
-
     public int getDeaths() {
         return deaths;
     }
