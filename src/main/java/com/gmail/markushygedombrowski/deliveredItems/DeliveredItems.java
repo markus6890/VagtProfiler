@@ -19,6 +19,7 @@ public interface DeliveredItems {
     int getDiamondBoots();
     int getDiamondSword();
     int getHeads();
+    int getBlazeRods();
     void setShards(int shards);
     void setBread(int bread);
     void setIronHelmet(int ironHelmet);
@@ -32,6 +33,7 @@ public interface DeliveredItems {
     void setDiamondBoots(int diamondBoots);
     void setDiamondSword(int diamondSword);
     void setHeads(int heads);
+    void setBlazeRods(int blazeRods);
     void debug();
     void incrementItem(Material item);
 

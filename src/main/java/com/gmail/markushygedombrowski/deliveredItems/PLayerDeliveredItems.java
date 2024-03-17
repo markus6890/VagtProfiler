@@ -19,10 +19,11 @@ public class PLayerDeliveredItems implements DeliveredItems {
     private int diamondBoots;
     private int diamondSword;
     private int heads;
+    private int blazeRods;
 
 
 
-    public PLayerDeliveredItems(UUID uuid, int seed, int bread, int ironHelmet, int ironChestplate, int ironLeggings, int ironBoots, int ironSword, int diamondHelmet, int diamondChestplate, int diamondLeggings, int diamondBoots, int diamondSword, int heads) {
+    public PLayerDeliveredItems(UUID uuid, int seed, int bread, int ironHelmet, int ironChestplate, int ironLeggings, int ironBoots, int ironSword, int diamondHelmet, int diamondChestplate, int diamondLeggings, int diamondBoots, int diamondSword, int heads, int blazeRods) {
         this.uuid = uuid;
         this.shards = seed;
         this.bread = bread;
@@ -37,6 +38,7 @@ public class PLayerDeliveredItems implements DeliveredItems {
         this.diamondBoots = diamondBoots;
         this.diamondSword = diamondSword;
         this.heads = heads;
+        this.blazeRods = blazeRods;
     }
 
     @Override
@@ -110,6 +112,11 @@ public class PLayerDeliveredItems implements DeliveredItems {
     }
 
     @Override
+    public int getBlazeRods() {
+        return blazeRods;
+    }
+
+    @Override
     public void setShards(int shards) {
         this.shards = shards;
     }
@@ -172,6 +179,11 @@ public class PLayerDeliveredItems implements DeliveredItems {
     @Override
     public void setHeads(int heads) {
         this.heads = heads;
+    }
+
+    @Override
+    public void setBlazeRods(int blazeRods) {
+        this.blazeRods = blazeRods;
     }
 
 

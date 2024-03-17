@@ -57,20 +57,20 @@ public class DeliveredItemsLoader {
                 resultSet.getInt("diamondLeggings"),
                 resultSet.getInt("diamondBoots"),
                 resultSet.getInt("diamondSword"),
-                resultSet.getInt("heads")
-        );
+                resultSet.getInt("heads"),
+                resultSet.getInt("blazeRods"));
     }
 
     private DeliveredItems createNewDeliveredItems(Connection connection, UUID uuid) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO DeliveredItems (uuid, seed, bread, ironHelmet, ironChestplate, ironLeggings, ironBoots, ironSword, diamondHelmet, diamondChestplate, diamondLeggings, diamondBoots, diamondSword, heads) VALUES (?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)")) {
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO DeliveredItems (uuid, seed, bread, ironHelmet, ironChestplate, ironLeggings, ironBoots, ironSword, diamondHelmet, diamondChestplate, diamondLeggings, diamondBoots, diamondSword, heads, blazeRods) VALUES (?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)")) {
             statement.setString(1, uuid.toString());
             statement.executeUpdate();
         }
-        return new PLayerDeliveredItems(uuid, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return new PLayerDeliveredItems(uuid, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     public void saveDeliveredItems(DeliveredItems deliveredItems) {
-        String updateQuery = "UPDATE DeliveredItems SET seed = ?, bread = ?, ironHelmet = ?, ironChestplate = ?, ironLeggings = ?, ironBoots = ?, ironSword = ?, diamondHelmet = ?, diamondChestplate = ?, diamondLeggings = ?, diamondBoots = ?, diamondSword = ?, heads = ? WHERE uuid = ?";
+        String updateQuery = "UPDATE DeliveredItems SET seed = ?, bread = ?, ironHelmet = ?, ironChestplate = ?, ironLeggings = ?, ironBoots = ?, ironSword = ?, diamondHelmet = ?, diamondChestplate = ?, diamondLeggings = ?, diamondBoots = ?, diamondSword = ?, heads = ? WHERE uuid = ?, blazeRods = ?";
 
         try (Connection connection = sql.getConnection();
              PreparedStatement statement = connection.prepareStatement(updateQuery)) {
@@ -89,6 +89,7 @@ public class DeliveredItemsLoader {
             statement.setInt(12, deliveredItems.getDiamondSword());
             statement.setInt(13, deliveredItems.getHeads());
             statement.setString(14, deliveredItems.getUUID().toString());
+            statement.setInt(15, deliveredItems.getBlazeRods());
 
             statement.executeUpdate();
         } catch (SQLException e) {
