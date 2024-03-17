@@ -70,7 +70,7 @@ public class DeliveredItemsLoader {
     }
 
     public void saveDeliveredItems(DeliveredItems deliveredItems) {
-        String updateQuery = "UPDATE DeliveredItems SET seed = ?, bread = ?, ironHelmet = ?, ironChestplate = ?, ironLeggings = ?, ironBoots = ?, ironSword = ?, diamondHelmet = ?, diamondChestplate = ?, diamondLeggings = ?, diamondBoots = ?, diamondSword = ?, heads = ? WHERE uuid = ?, blazeRods = ?";
+        String updateQuery = "UPDATE DeliveredItems SET seed = ?, bread = ?, ironHelmet = ?, ironChestplate = ?, ironLeggings = ?, ironBoots = ?, ironSword = ?, diamondHelmet = ?, diamondChestplate = ?, diamondLeggings = ?, diamondBoots = ?, diamondSword = ?, heads = ?, blazeRods = ? WHERE uuid = ?";
 
         try (Connection connection = sql.getConnection();
              PreparedStatement statement = connection.prepareStatement(updateQuery)) {
@@ -88,9 +88,8 @@ public class DeliveredItemsLoader {
             statement.setInt(11, deliveredItems.getDiamondBoots());
             statement.setInt(12, deliveredItems.getDiamondSword());
             statement.setInt(13, deliveredItems.getHeads());
-            statement.setString(14, deliveredItems.getUUID().toString());
-            statement.setInt(15, deliveredItems.getBlazeRods());
-
+            statement.setInt(14, deliveredItems.getBlazeRods());
+            statement.setString(15, deliveredItems.getUUID().toString());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
