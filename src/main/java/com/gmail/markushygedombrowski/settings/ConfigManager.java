@@ -21,6 +21,9 @@ public class ConfigManager {
     public File deliveredItemsFile;
     public FileConfiguration rankupCfg;
     public File rankupFile;
+    public FileConfiguration panikrumcfg;
+    public File panikrumFile;
+
 
 
     public void setup() {
@@ -32,10 +35,12 @@ public class ConfigManager {
         vagtFangePvpFile = new File(plugin.getDataFolder(), "vagtFangePvp.yml");
         deliveredItemsFile = new File(plugin.getDataFolder(), "deliveredItems.yml");
         rankupFile = new File(plugin.getDataFolder(), "rankup.yml");
+        panikrumFile = new File(plugin.getDataFolder(), "panikrum.yml");
 
         configList.add(vagtFangePvpFile);
         configList.add(deliveredItemsFile);
         configList.add(rankupFile);
+        configList.add(panikrumFile);
 
         configList.forEach(file -> {
             if (!file.exists()) {
@@ -49,6 +54,7 @@ public class ConfigManager {
         vagtFangePvpcfg = YamlConfiguration.loadConfiguration(vagtFangePvpFile);
         deliveredItemsCfg = YamlConfiguration.loadConfiguration(deliveredItemsFile);
         rankupCfg = YamlConfiguration.loadConfiguration(rankupFile);
+        panikrumcfg = YamlConfiguration.loadConfiguration(panikrumFile);
 
     }
 
@@ -64,11 +70,22 @@ public class ConfigManager {
         return rankupCfg;
     }
 
+    public FileConfiguration getPanikrumcfg() {
+        return panikrumcfg;
+    }
+
     public void saveDeliveredItems() {
         try {
             deliveredItemsCfg.save(deliveredItemsFile);
         } catch (IOException e) {
             Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "could not save deliveredItems.yml File");
+        }
+    }
+    public void savePanikrum() {
+        try {
+            panikrumcfg.save(panikrumFile);
+        } catch (IOException e) {
+            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "could not save panikrum.yml File");
         }
     }
 
@@ -82,6 +99,10 @@ public class ConfigManager {
 
     public void reloadRankup() {
         rankupCfg = YamlConfiguration.loadConfiguration(rankupFile);
+    }
+
+    public void reloadPanikrum() {
+        panikrumcfg = YamlConfiguration.loadConfiguration(panikrumFile);
     }
 
     public void saveVagtFangePvp() {

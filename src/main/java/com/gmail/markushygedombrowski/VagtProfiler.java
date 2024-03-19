@@ -10,6 +10,7 @@ import com.gmail.markushygedombrowski.settings.Settings;
 import com.gmail.markushygedombrowski.settings.VagtFangePvpConfigManager;
 import com.gmail.markushygedombrowski.sql.Sql;
 import com.gmail.markushygedombrowski.sql.SqlSettings;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,6 +45,7 @@ public class VagtProfiler extends JavaPlugin {
         System.out.println("-----------------------------");
         System.out.println("VagtProfiler has been enabled!");
         System.out.println("-----------------------------");
+        saveEvery10Minutes();
     }
 
     @Override
@@ -52,6 +54,14 @@ public class VagtProfiler extends JavaPlugin {
         System.out.println("-----------------------------");
         System.out.println("VagtProfiler has been disabled!");
         System.out.println("-----------------------------");
+    }
+
+    public void saveEvery10Minutes() {
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            playerProfiles.saveAll();
+        }, 0, 12000);
+
     }
 
     private void settings(FileConfiguration config) {
