@@ -133,11 +133,11 @@ public class VagtProfiler extends JavaPlugin {
     public ConfigManager getConfigManager() {
         return configM;
     }
-
-    public static VagtProfiler getInstance() {
-        return instance;
-    }
     public PanikRumManager getPanikRumManager() {
         return panikRumManager;
     }
+    public static VagtProfiler getInstance() {
+        return instance;
+    }
+
 }
