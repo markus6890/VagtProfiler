@@ -31,4 +31,11 @@ public class PanikRumManager {
         configManager.savePanikrum();
         panikRumHashMap.put(name, panikRum);
     }
+    public void remove(PanikRum panikRum) {
+        FileConfiguration config = configManager.getPanikrumcfg();
+        String name = panikRum.getName();
+        config.set("panikrum." + name, null);
+        configManager.savePanikrum();
+        panikRumHashMap.remove(name);
+    }
 }
