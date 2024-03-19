@@ -3,6 +3,7 @@ package com.gmail.markushygedombrowski;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItemsLoader;
 import com.gmail.markushygedombrowski.deliveredItems.ItemProfileLoader;
 import com.gmail.markushygedombrowski.levels.LevelUpListener;
+import com.gmail.markushygedombrowski.panikrum.PanikRumManager;
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfiles;
 import com.gmail.markushygedombrowski.settings.ConfigManager;
 import com.gmail.markushygedombrowski.settings.Reconfigurations;
@@ -25,6 +26,7 @@ public class VagtProfiler extends JavaPlugin {
     private VagtFangePvpConfigManager vagtFangePvpConfigManager;
     private static VagtProfiler instance;
     private ItemProfileLoader itemProfileLoader;
+    private PanikRumManager panikRumManager;
 
     @Override
     public void onEnable() {
@@ -76,6 +78,9 @@ public class VagtProfiler extends JavaPlugin {
 
         itemProfileLoader = new ItemProfileLoader();
         itemProfileLoader.load(configM.getDeliveredItemsCfg());
+        panikRumManager = new PanikRumManager(configM);
+        panikRumManager.load(configM.getPanikrumcfg());
+
         try {
             playerProfiles.load();
         } catch (SQLException e) {
@@ -128,7 +133,11 @@ public class VagtProfiler extends JavaPlugin {
     public ConfigManager getConfigManager() {
         return configM;
     }
+
     public static VagtProfiler getInstance() {
         return instance;
+    }
+    public PanikRumManager getPanikRumManager() {
+        return panikRumManager;
     }
 }
