@@ -6,6 +6,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class Reconfigurations implements CommandExecutor {
 
     private VagtProfiler plugin;
@@ -21,7 +24,11 @@ public class Reconfigurations implements CommandExecutor {
             sender.sendMessage("§aYou do not have permission to do that");
             return true;
         }
-        plugin.reload();
+        try {
+            plugin.reload();
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
         sender.sendMessage("§a§lPlugin reloadet!");
 

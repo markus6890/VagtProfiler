@@ -2,6 +2,8 @@ package com.gmail.markushygedombrowski;
 
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItemsLoader;
 import com.gmail.markushygedombrowski.deliveredItems.ItemProfileLoader;
+import com.gmail.markushygedombrowski.inventory.ChangeInvOnWarp;
+import com.gmail.markushygedombrowski.inventory.InvManager;
 import com.gmail.markushygedombrowski.levels.LevelUpListener;
 import com.gmail.markushygedombrowski.panikrum.PanikRumManager;
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfiles;
@@ -15,6 +17,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class VagtProfiler extends JavaPlugin {
@@ -27,6 +30,7 @@ public class VagtProfiler extends JavaPlugin {
     private static VagtProfiler instance;
     private ItemProfileLoader itemProfileLoader;
     private PanikRumManager panikRumManager;
+    private ChangeInvOnWarp changeInventory;
 
     @Override
     public void onEnable() {
@@ -37,9 +41,11 @@ public class VagtProfiler extends JavaPlugin {
         loadConfigManager();
         saveDefaultConfig();
         loadSQL(getConfig());
-        settings(getConfig());
-
-
+        try {
+            settings(getConfig());
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
         LevelUpListener levelUpListener = new LevelUpListener(playerProfiles);
@@ -66,7 +72,7 @@ public class VagtProfiler extends JavaPlugin {
 
     }
 
-    private void settings(FileConfiguration config) {
+    private void settings(FileConfiguration config) throws SQLException, IOException {
         settings = new Settings();
         settings.load(config);
 
@@ -80,6 +86,9 @@ public class VagtProfiler extends JavaPlugin {
         itemProfileLoader.load(configM.getDeliveredItemsCfg());
         panikRumManager = new PanikRumManager(configM);
         panikRumManager.load(configM.getPanikrumcfg());
+        InvManager invManager = new InvManager(sql);
+        invManager.loadInventories();
+        changeInventory = new ChangeInvOnWarp(invManager);
 
         try {
             playerProfiles.load();
@@ -94,7 +103,7 @@ public class VagtProfiler extends JavaPlugin {
         sql = new Sql(sqlSettings);
     }
 
-    public void reload() {
+    public void reload() throws SQLException, IOException {
         reloadConfig();
         FileConfiguration config = getConfig();
         loadConfigManager();
@@ -138,6 +147,9 @@ public class VagtProfiler extends JavaPlugin {
     }
     public static VagtProfiler getInstance() {
         return instance;
+    }
+    public ChangeInvOnWarp getChangeInventory() {
+        return changeInventory;
     }
 
 }
