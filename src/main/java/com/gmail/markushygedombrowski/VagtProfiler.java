@@ -31,6 +31,7 @@ public class VagtProfiler extends JavaPlugin {
     private ItemProfileLoader itemProfileLoader;
     private PanikRumManager panikRumManager;
     private ChangeInvOnWarp changeInventory;
+    private InvManager invManager;
 
     @Override
     public void onEnable() {
@@ -59,6 +60,7 @@ public class VagtProfiler extends JavaPlugin {
     @Override
     public void onDisable() {
         playerProfiles.saveAll();
+        invManager.saveAll();
         System.out.println("-----------------------------");
         System.out.println("VagtProfiler has been disabled!");
         System.out.println("-----------------------------");
@@ -86,7 +88,7 @@ public class VagtProfiler extends JavaPlugin {
         itemProfileLoader.load(configM.getDeliveredItemsCfg());
         panikRumManager = new PanikRumManager(configM);
         panikRumManager.load(configM.getPanikrumcfg());
-        InvManager invManager = new InvManager(sql);
+        invManager = new InvManager(sql);
         invManager.loadInventories();
         changeInventory = new ChangeInvOnWarp(invManager);
 

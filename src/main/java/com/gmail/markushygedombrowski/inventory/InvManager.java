@@ -87,8 +87,22 @@ public class InvManager {
             ItemStack[] inventory = itemStackArrayFromBase64(inventoryData);
             ItemStack[] gear = itemStackArrayFromBase64(gearData);
             createInventory(uuid, block, inventory, gear);
+            deleteInventory(uuid, block);
         }
         sql.closeAllSQL(connection, statement, resultSet);
+    }
+
+    public void deleteInventory(UUID uuid, String block) throws SQLException {
+        Connection connection = sql.getConnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement("DELETE FROM inventories WHERE uuid = ? AND block = ?");
+            statement.setString(1, uuid.toString());
+            statement.setString(2, block);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void saveAll() {
         playerInventories.forEach((uuid, invHolder) -> {

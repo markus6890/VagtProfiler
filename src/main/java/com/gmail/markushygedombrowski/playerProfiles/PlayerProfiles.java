@@ -51,12 +51,12 @@ public class PlayerProfiles {
                 DeliveredItems deliveredItems = deliveredItemsLoader.loadDeliveredItems(uuid);
                 PlayerProfile profile = new PlayerProfile(uuid, name, pvs, level, salary, deaths, kills, exp, vagtposter, achevments, deliveredItems);
                 profileMap.put(uuid, profile);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
     public void saveAll() {
         profileMap.values().forEach(profile -> {
             try {
