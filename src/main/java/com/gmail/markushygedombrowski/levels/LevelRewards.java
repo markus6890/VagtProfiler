@@ -1,13 +1,49 @@
 package com.gmail.markushygedombrowski.levels;
 
+import com.gmail.markushygedombrowski.playerProfiles.PlayerProfile;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Random;
 
 public class LevelRewards {
 
 
-    public void getLevel20Rewards(Player player) {
+    public void giveReward(Player p, int level) {
+        if(level == 23) {
+            Random random = new Random();
+            ItemStack glass = new ItemStack(Material.GLASS, 1, (short) random.nextInt(15));
+            p.getInventory().addItem(glass);
+        }
+        if(level == 20) {
+            Random random = new Random();
+            ItemStack glass = new ItemStack(Material.RED_ROSE, 1, (short) random.nextInt(8));
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagta.celle prison");
+            p.getInventory().addItem(glass);
+        }
+        if(level == 18) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtb.celle prison");
+        }
+        if(level == 10) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle prison");
+        }
 
-
+    }
+    public void updatePlayerLevel(Player p, PlayerProfile playerProfile) {
+        if (playerProfile.getLvl() >= 20) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagta.celle prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtb.celle prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle prison");
+        }
+        else if (playerProfile.getLvl() >= 18) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagta.celle prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtb.celle prison");
+        }
+        else if (playerProfile.getLvl() >= 10) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagta.celle prison");
+        }
     }
 }

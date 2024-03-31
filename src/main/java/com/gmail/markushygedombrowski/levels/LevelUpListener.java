@@ -32,7 +32,6 @@ public class LevelUpListener implements Listener {
         p.sendMessage("Du skal bruge §b" + profile.getXpToNextLvl() + " §3exp til næste level");
         p.sendMessage("§6§l--------§a§lLevel Up!§6§l--------");
 
-
         try {
             playerProfiles.save(profile);
         } catch (SQLException e) {
