@@ -4,6 +4,7 @@ import com.gmail.markushygedombrowski.deliveredItems.DeliveredItemsLoader;
 import com.gmail.markushygedombrowski.deliveredItems.ItemProfileLoader;
 import com.gmail.markushygedombrowski.inventory.ChangeInvOnWarp;
 import com.gmail.markushygedombrowski.inventory.InvManager;
+import com.gmail.markushygedombrowski.levels.LevelRewards;
 import com.gmail.markushygedombrowski.levels.LevelUpListener;
 import com.gmail.markushygedombrowski.panikrum.PanikRumManager;
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfiles;
@@ -32,6 +33,7 @@ public class VagtProfiler extends JavaPlugin {
     private PanikRumManager panikRumManager;
     private ChangeInvOnWarp changeInventory;
     private InvManager invManager;
+    private LevelRewards levelRewards;
 
     @Override
     public void onEnable() {
@@ -48,8 +50,8 @@ public class VagtProfiler extends JavaPlugin {
             throw new RuntimeException(e);
         }
 
-
-        LevelUpListener levelUpListener = new LevelUpListener(playerProfiles);
+        LevelRewards levelRewards = new LevelRewards();
+        LevelUpListener levelUpListener = new LevelUpListener(playerProfiles, levelRewards);
         getServer().getPluginManager().registerEvents(levelUpListener, this);
         System.out.println("-----------------------------");
         System.out.println("VagtProfiler has been enabled!");
@@ -112,8 +114,6 @@ public class VagtProfiler extends JavaPlugin {
         settings(getConfig());
 
 
-
-
     }
 
     public void loadConfigManager() {
@@ -141,17 +141,29 @@ public class VagtProfiler extends JavaPlugin {
     public VagtFangePvpConfigManager getVagtFangePvpConfigManager() {
         return vagtFangePvpConfigManager;
     }
+
     public ConfigManager getConfigManager() {
         return configM;
     }
+
     public PanikRumManager getPanikRumManager() {
         return panikRumManager;
     }
+
     public static VagtProfiler getInstance() {
         return instance;
     }
+
     public ChangeInvOnWarp getChangeInventory() {
         return changeInventory;
+    }
+
+    public InvManager getInvManager() {
+        return invManager;
+    }
+
+    public LevelRewards getLevelRewards() {
+        return levelRewards;
     }
 
 }
