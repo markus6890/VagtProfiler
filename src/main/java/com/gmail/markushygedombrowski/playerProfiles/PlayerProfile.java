@@ -21,6 +21,7 @@ public class PlayerProfile {
     private int deaths;
     private int xp;
     private int achievements;
+    private int shardrate;
 
 
     private DeliveredItems deliveredItems;
@@ -29,7 +30,7 @@ public class PlayerProfile {
     private int vagtposter;
 
 
-    public PlayerProfile(UUID uuid, String name, int pv, int lvl, int lon, int deaths, int kills, int xp, int vagtposter, int achievements, DeliveredItems deliveredItems) {
+    public PlayerProfile(UUID uuid, String name, int pv, int lvl, int lon, int deaths, int kills, int xp, int vagtposter, int achievements, DeliveredItems deliveredItems, int shardrate) {
         this.uuid = uuid;
         this.name = name;
         this.pv = pv;
@@ -38,6 +39,7 @@ public class PlayerProfile {
         this.deaths = deaths;
         this.kills = kills;
         this.xp = xp;
+        this.shardrate = shardrate;
         this.vagtposter = vagtposter;
         this.achievements = achievements;
         this.deliveredItems = deliveredItems;
@@ -140,5 +142,11 @@ public class PlayerProfile {
     }
 
 
+    public int getShardrate() {
+        return shardrate;
+    }
 
+    public void setShardrate(int shardrate) {
+        this.shardrate = shardrate;
+    }
 }

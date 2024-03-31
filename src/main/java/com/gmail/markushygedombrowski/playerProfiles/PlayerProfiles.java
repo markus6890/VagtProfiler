@@ -48,8 +48,12 @@ public class PlayerProfiles {
                 int vagtposter = resultSet.getInt("vagtposter");
                 int salary = resultSet.getInt("salary");
                 int achevments = resultSet.getInt("achevments");
+                int shardsrate = resultSet.getInt("shardsrate");
                 DeliveredItems deliveredItems = deliveredItemsLoader.loadDeliveredItems(uuid);
-                PlayerProfile profile = new PlayerProfile(uuid, name, pvs, level, salary, deaths, kills, exp, vagtposter, achevments, deliveredItems);
+                if(shardsrate == 0){
+                    shardsrate = 1;
+                }
+                PlayerProfile profile = new PlayerProfile(uuid, name, pvs, level, salary, deaths, kills, exp, vagtposter, achevments, deliveredItems,shardsrate);
                 profileMap.put(uuid, profile);
 
             }
@@ -76,8 +80,8 @@ public class PlayerProfiles {
 
     public void save(PlayerProfile profile) throws SQLException {
         Connection connection = sql.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO vagtprofile (UUID, name, deaths, kills, pvs, level, nextlevelexp, exp, vagtposter, salary, achevments) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name = ?, deaths = ?, kills = ?, pvs = ?, level = ?, nextlevelexp = ?, exp = ?, vagtposter = ?, salary = ?, achevments = ?");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO vagtprofile (UUID, name, deaths, kills, pvs, level, nextlevelexp, exp, vagtposter, salary, achevments,shardsrate) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ?) ON DUPLICATE KEY UPDATE name = ?, deaths = ?, kills = ?, pvs = ?, level = ?, nextlevelexp = ?, exp = ?, vagtposter = ?, salary = ?, achevments = ?, shardsrate = ?");
 
         statement.setString(1, profile.getUuid().toString());
         statement.setString(2, profile.getName());
@@ -90,18 +94,19 @@ public class PlayerProfiles {
         statement.setInt(9, profile.getVagtposter());
         statement.setInt(10, profile.getLon());
         statement.setInt(11, profile.getAchievements());
+        statement.setInt(12, profile.getShardrate());
 
-
-        statement.setString(12, profile.getName());
-        statement.setInt(13, profile.getDeaths());
-        statement.setInt(14, profile.getKills());
-        statement.setInt(15, profile.getPv());
-        statement.setInt(16, profile.getLvl());
-        statement.setDouble(17, profile.getXpToNextLvl());
-        statement.setInt(18, profile.getXp());
-        statement.setInt(19, profile.getVagtposter());
-        statement.setInt(20, profile.getLon());
-        statement.setInt(21, profile.getAchievements());
+        statement.setString(13, profile.getName());
+        statement.setInt(14, profile.getDeaths());
+        statement.setInt(15, profile.getKills());
+        statement.setInt(16, profile.getPv());
+        statement.setInt(17, profile.getLvl());
+        statement.setDouble(18, profile.getXpToNextLvl());
+        statement.setInt(19, profile.getXp());
+        statement.setInt(20, profile.getVagtposter());
+        statement.setInt(21, profile.getLon());
+        statement.setInt(22, profile.getAchievements());
+        statement.setInt(23, profile.getShardrate());
 
         statement.executeUpdate();
         deliveredItemsLoader.saveDeliveredItems(profile.getDeliveredItems());
@@ -128,7 +133,7 @@ public class PlayerProfiles {
         }
 
         PLayerDeliveredItems deliveredItems = new PLayerDeliveredItems(p.getUniqueId(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        profile = new PlayerProfile(p.getUniqueId(), p.getName(), 1, 1, lon, 0, 0, 0, 0, 0, deliveredItems);
+        profile = new PlayerProfile(p.getUniqueId(), p.getName(), 1, 1, lon, 0, 0, 0, 0, 0, deliveredItems,1);
         System.out.println("name" + profile.getName());
         System.out.println("UUID" + profile.getUuid());
         System.out.println("løn" + profile.getLon());
