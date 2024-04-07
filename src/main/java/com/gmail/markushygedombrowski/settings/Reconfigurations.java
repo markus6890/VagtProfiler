@@ -2,6 +2,7 @@ package com.gmail.markushygedombrowski.settings;
 
 
 import com.gmail.markushygedombrowski.VagtProfiler;
+import com.gmail.markushygedombrowski.playerProfiles.PlayerProfiles;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,9 +13,10 @@ import java.sql.SQLException;
 public class Reconfigurations implements CommandExecutor {
 
     private VagtProfiler plugin;
-
-    public Reconfigurations(VagtProfiler plugin ) {
+    private PlayerProfiles playerProfiles;
+    public Reconfigurations(VagtProfiler plugin, PlayerProfiles playerProfiles) {
         this.plugin = plugin;
+        this.playerProfiles = playerProfiles;
     }
 
 
@@ -22,6 +24,10 @@ public class Reconfigurations implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
         if (!(sender.hasPermission("HLreload"))) {
             sender.sendMessage("§aYou do not have permission to do that");
+            return true;
+        }
+        if(alias.equalsIgnoreCase("printProperties")) {
+            playerProfiles.getPropertiesNames().forEach(sender::sendMessage);
             return true;
         }
         try {

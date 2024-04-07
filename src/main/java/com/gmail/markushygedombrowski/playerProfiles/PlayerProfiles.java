@@ -11,12 +11,11 @@ import com.google.gson.reflect.TypeToken;
 import org.bukkit.entity.Player;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class PlayerProfiles {
     private Map<UUID, PlayerProfile> profileMap = new HashMap<>();
+    private List<String> propertiesNames = new ArrayList<>();
     private Settings settings;
 
     private Sql sql;
@@ -89,6 +88,7 @@ public class PlayerProfiles {
 
                 // Save the new PlayerProfile to the new database
                 save(profile);
+                propertiesNames.addAll(profile.getProperties().keySet());
             }
 
         }
@@ -137,8 +137,13 @@ public class PlayerProfiles {
     }
 
 
+
     public Map<UUID, PlayerProfile> getProfileMap() {
         return profileMap;
+    }
+
+    public List<String> getPropertiesNames() {
+        return propertiesNames;
     }
 
     public PlayerProfile getPlayerProfile(UUID uuid) {

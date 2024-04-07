@@ -67,6 +67,10 @@ public class PlayerProfile {
         return properties.containsKey(key);
     }
 
+    public void removeProperty(String key) {
+        properties.remove(key);
+    }
+
     public Object getProperty(String key) {
         return properties.get(key);
     }

@@ -4,4 +4,5 @@ version: "1.0"
 softdepend: [Vault]
 commands:
   vagtreload:
+    aliases: ["printProperties"]
     description: "reloads config"

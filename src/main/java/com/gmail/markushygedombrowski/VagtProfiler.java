@@ -37,8 +37,7 @@ public class VagtProfiler extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Reconfigurations reconfigurations = new Reconfigurations(this);
-        getCommand("vagtreload").setExecutor(reconfigurations);
+
 
         instance = this;
         loadConfigManager();
@@ -53,6 +52,8 @@ public class VagtProfiler extends JavaPlugin {
         levelRewards = new LevelRewards();
         LevelUpListener levelUpListener = new LevelUpListener(playerProfiles, levelRewards);
         getServer().getPluginManager().registerEvents(levelUpListener, this);
+        Reconfigurations reconfigurations = new Reconfigurations(this, playerProfiles);
+        getCommand("vagtreload").setExecutor(reconfigurations);
         System.out.println("-----------------------------");
         System.out.println("VagtProfiler has been enabled!");
         System.out.println("-----------------------------");
