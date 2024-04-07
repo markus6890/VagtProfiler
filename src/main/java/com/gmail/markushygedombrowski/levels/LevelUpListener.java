@@ -19,20 +19,20 @@ public class LevelUpListener implements Listener {
     @EventHandler
     public void onLevelUp(LevelUpEvent event) {
         PlayerProfile playerProfile = event.getPlayerProfile();
-        if(playerProfile.getXp() >= playerProfile.getXpToNextLvl()) {
+        if((int)playerProfile.getProperty("level") >= playerProfile.getXpToNextLvl()) {
             levelUp(event.getPlayer(), playerProfile);
         }
 
     }
     private void levelUp(Player p, PlayerProfile profile) {
         int xpToNextLvl = profile.getXpToNextLvl();
-        profile.setLvl(profile.getLvl() + 1);
-        profile.setXp(profile.getXp() - xpToNextLvl);
+        profile.setProperty("level", (int) profile.getProperty("level") + 1);
+        profile.setProperty("exp", (int) profile.getProperty("exp") - xpToNextLvl);
         p.sendMessage("§6§l--------§a§lLevel Up!§6§l--------");
-        p.sendMessage("Tillykke du er nu level §b" + profile.getLvl());
+        p.sendMessage("Tillykke du er nu level §b" + profile.getProperty("level") + "§3!");
         p.sendMessage("Du skal bruge §b" + profile.getXpToNextLvl() + " §3exp til næste level");
         p.sendMessage("§6§l--------§a§lLevel Up!§6§l--------");
-        levelRewards.giveReward(p, profile.getLvl(), profile);
+        levelRewards.giveReward(p, (int)profile.getProperty("level"), profile);
         try {
             playerProfiles.save(profile);
         } catch (SQLException e) {

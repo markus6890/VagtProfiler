@@ -29,39 +29,6 @@ public class PlayerProfiles {
         createTableIfNotExist();
     }
 
-    public void load_old() throws SQLException {
-        try (Connection connection = sql.getConnection();
-
-
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM vagtprofile_old");
-             ResultSet resultSet = statement.executeQuery()) {
-
-            profileMap.clear();
-
-            while (resultSet.next()) {
-                UUID uuid = UUID.fromString(resultSet.getString("UUID"));
-                String name = resultSet.getString("name");
-                int deaths = resultSet.getInt("deaths");
-                int kills = resultSet.getInt("kills");
-                int pvs = resultSet.getInt("pvs");
-                int level = resultSet.getInt("level");
-                int exp = resultSet.getInt("exp");
-                int vagtposter = resultSet.getInt("vagtposter");
-                int salary = resultSet.getInt("salary");
-                int achevments = resultSet.getInt("achievements");
-                int shardsrate = resultSet.getInt("shardsrate");
-                DeliveredItems deliveredItems = deliveredItemsLoader.loadDeliveredItems(uuid);
-                if (shardsrate == 0) {
-                    shardsrate = 1;
-                }
-                PlayerProfile profile = new PlayerProfile(uuid, name, pvs, level, salary, deaths, kills, exp, vagtposter, achevments, deliveredItems, shardsrate);
-                profileMap.put(uuid, profile);
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void saveAll() {
         profileMap.values().forEach(profile -> {
@@ -120,7 +87,6 @@ public class PlayerProfiles {
                 profile.setProperty("achievements", resultSet.getInt("achievements"));
                 profile.setProperty("shardrate", resultSet.getInt("shardsrate"));
                 profile.setProperty("vagtposter", resultSet.getInt("vagtposter"));
-                // ... repeat for all other properties ...
 
                 // Save the new PlayerProfile to the new database
                 save(profile);

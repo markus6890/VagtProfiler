@@ -94,11 +94,6 @@ public class VagtProfiler extends JavaPlugin {
         invManager.loadInventories();
         changeInventory = new ChangeInvOnWarp(invManager);
 
-        try {
-            playerProfiles.load_old();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         playerProfiles.migrateData();
 
     }
