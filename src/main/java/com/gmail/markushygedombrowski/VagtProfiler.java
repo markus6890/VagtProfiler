@@ -50,7 +50,7 @@ public class VagtProfiler extends JavaPlugin {
             throw new RuntimeException(e);
         }
 
-        LevelRewards levelRewards = new LevelRewards();
+        levelRewards = new LevelRewards();
         LevelUpListener levelUpListener = new LevelUpListener(playerProfiles, levelRewards);
         getServer().getPluginManager().registerEvents(levelUpListener, this);
         System.out.println("-----------------------------");
@@ -95,10 +95,12 @@ public class VagtProfiler extends JavaPlugin {
         changeInventory = new ChangeInvOnWarp(invManager);
 
         try {
-            playerProfiles.load();
+            playerProfiles.load_old();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        playerProfiles.migrateData();
+
     }
 
     private void loadSQL(FileConfiguration config) {

@@ -8,10 +8,7 @@ import org.bukkit.util.io.BukkitObjectOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.UUID;
@@ -21,6 +18,7 @@ public class InvManager {
     public final HashMap<UUID, InvHolder> playerInventories = new HashMap<>();
     public InvManager(Sql sql) {
         this.sql = sql;
+        createTableIfNotExist();
     }
 
     public String itemStackArrayToBase64(ItemStack[] items) throws IllegalStateException {
@@ -122,6 +120,29 @@ public class InvManager {
             return;
         }
         playerInventories.get(uuid).inventories.put(block, new InvHolder(uuid, inventory,gear, block));
+    }
+    public void createTableIfNotExist() {
+        try (Connection connection = sql.getConnection()) {
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet tables = metaData.getTables(null, null, "inventories", null);
+
+            if (!tables.next()) {
+                // Table does not exist
+                String createTableQuery = "CREATE TABLE inventories ("
+                        + "uuid VARCHAR(36),"
+                        + "block VARCHAR(255),"
+                        + "inventory TEXT,"
+                        + "gear TEXT,"
+                        + "PRIMARY KEY (uuid, block)"
+                        + ");";
+
+                try (Statement statement = connection.createStatement()) {
+                    statement.execute(createTableQuery);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

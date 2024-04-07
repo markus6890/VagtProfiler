@@ -13,6 +13,7 @@ public class DeliveredItemsLoader {
 
     public DeliveredItemsLoader(Sql sql) {
         this.sql = sql;
+        createTableIfNotExist();
     }
 
     public DeliveredItems loadDeliveredItems(UUID uuid) {
@@ -40,6 +41,39 @@ public class DeliveredItemsLoader {
             sql.closeAllSQL(connection, statement, resultSet);
         }
         return null;
+    }
+    public void createTableIfNotExist() {
+        try (Connection connection = sql.getConnection()) {
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet tables = metaData.getTables(null, null, "DeliveredItems", null);
+
+            if (!tables.next()) {
+                // Table does not exist
+                String createTableQuery = "CREATE TABLE DeliveredItems ("
+                        + "uuid VARCHAR(36) PRIMARY KEY,"
+                        + "seed INT,"
+                        + "bread INT,"
+                        + "ironHelmet INT,"
+                        + "ironChestplate INT,"
+                        + "ironLeggings INT,"
+                        + "ironBoots INT,"
+                        + "ironSword INT,"
+                        + "diamondHelmet INT,"
+                        + "diamondChestplate INT,"
+                        + "diamondLeggings INT,"
+                        + "diamondBoots INT,"
+                        + "diamondSword INT,"
+                        + "heads INT,"
+                        + "blazeRods INT"
+                        + ");";
+
+                try (Statement statement = connection.createStatement()) {
+                    statement.execute(createTableQuery);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private DeliveredItems createDeliveredItemsFromResultSet(ResultSet resultSet) throws SQLException {

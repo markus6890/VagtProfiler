@@ -24,14 +24,14 @@ public class LevelRewards {
         if(level == 20) {
             Random random = new Random();
             ItemStack glass = new ItemStack(Material.RED_ROSE, 1, (short) random.nextInt(8));
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagta.celle prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagta.celle true prison");
             p.getInventory().addItem(glass);
         }
         if(level == 18) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtb.celle prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtb.celle true prison");
         }
         if(level == 10) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle true prison");
         }
 
     }
@@ -45,22 +45,22 @@ public class LevelRewards {
             if(p.hasPermission("vagta.celle")) {
                 return;
             }
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagta.celle prison");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtb.celle prison");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagta.celle true prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtb.celle true prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle true prison");
         }
         else if (playerProfile.getLvl() >= 18) {
             if(p.hasPermission("vagtb.celle")) {
                 return;
             }
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtb.celle prison");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtb.celle true prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle true prison");
         }
         else if (playerProfile.getLvl() >= 10) {
             if(p.hasPermission("vagtc.celle")) {
                 return;
             }
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle prison");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " permission set vagtc.celle true prison");
         }
     }
 }

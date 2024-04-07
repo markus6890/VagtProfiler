@@ -1,11 +1,12 @@
 package com.gmail.markushygedombrowski.playerProfiles;
 
 
-
 import com.gmail.markushygedombrowski.levels.LevelUpEvent;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
 import org.bukkit.Bukkit;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class PlayerProfile {
@@ -22,12 +23,9 @@ public class PlayerProfile {
     private int xp;
     private int achievements;
     private int shardrate;
-
-
     private DeliveredItems deliveredItems;
-
-
     private int vagtposter;
+    private Map<String, Object> properties;
 
 
     public PlayerProfile(UUID uuid, String name, int pv, int lvl, int lon, int deaths, int kills, int xp, int vagtposter, int achievements, DeliveredItems deliveredItems, int shardrate) {
@@ -45,108 +43,127 @@ public class PlayerProfile {
         this.deliveredItems = deliveredItems;
     }
 
-    public DeliveredItems getDeliveredItems() {
-        return deliveredItems;
+    public PlayerProfile(UUID uuid, String name) {
+        this.uuid = uuid;
+        this.name = name;
+        this.properties = new HashMap<>();
     }
 
-    public void setDeliveredItems(DeliveredItems deliveredItems) {
-        this.deliveredItems = deliveredItems;
-    }
 
-    public int getAchievements() {
-        return achievements;
-    }
 
-    public void setAchievements(int achievements) {
-        this.achievements = achievements;
-    }
-
-    public int getXp() {
-        return xp;
-    }
-
-    public void setXp(int xp) {
-        this.xp = xp;
-        if(xp >= getXpToNextLvl()) {
-            LevelUpEvent event = new LevelUpEvent(false, Bukkit.getPlayer(uuid), lvl, this, xp);
-            Bukkit.getPluginManager().callEvent(event);
+        public DeliveredItems getDeliveredItems() {
+            return deliveredItems;
         }
 
+        public void setDeliveredItems(DeliveredItems deliveredItems) {
+            this.deliveredItems = deliveredItems;
+        }
+
+        public int getAchievements() {
+            return achievements;
+        }
+
+        public void setAchievements(int achievements) {
+            this.achievements = achievements;
+        }
+
+        public int getXp() {
+            return xp;
+        }
+
+        public void setXp(int xp) {
+            this.xp = xp;
+            if(xp >= getXpToNextLvl()) {
+                LevelUpEvent event = new LevelUpEvent(false, Bukkit.getPlayer(uuid), lvl, this, xp);
+                Bukkit.getPluginManager().callEvent(event);
+            }
+
+        }
+
+        public int getXpToNextLvl() {
+            return (int) Math.pow((lvl/x),y);
+        }
+
+
+        public int getVagtposter() {
+            return vagtposter;
+        }
+
+        public void setVagtposter(int vagtposter) {
+            this.vagtposter = vagtposter;
+        }
+
+        // get players info
+        public UUID getUuid() {
+            return uuid;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getPv() {
+            return pv;
+        }
+
+        public int getLvl() {
+            return lvl;
+        }
+
+        public int getLon() {
+            return lvl * 1000 + 3000;
+        }
+        public int getDeaths() {
+            return deaths;
+        }
+
+        public int getKills() {
+            return kills;
+        }
+
+
+        // set some values
+        public void setLon(int lon) {
+            this.lon = lon;
+        }
+
+        public void setPv(int pv) {
+            this.pv = pv;
+        }
+
+        public void setLvl(int lvl) {
+            this.lvl = lvl;
+        }
+
+        public void setDeaths(int deaths) {
+            this.deaths = deaths;
+        }
+
+        public void setKills(int kills) {
+            this.kills = kills;
+        }
+
+        public int getExpSpecificLevel(int level) {
+            return (int) Math.pow((level/x),y);
+        }
+
+
+        public int getShardrate() {
+            return shardrate;
+        }
+
+        public void setShardrate(int shardrate) {
+            this.shardrate = shardrate;
+        }
+
+    public Object getProperty(String key) {
+        return properties.get(key);
+    }
+    public Map<String, Object> getProperties() {
+        return properties;
     }
 
-    public int getXpToNextLvl() {
-        return (int) Math.pow((lvl/x),y);
-    }
-
-
-    public int getVagtposter() {
-        return vagtposter;
-    }
-
-    public void setVagtposter(int vagtposter) {
-        this.vagtposter = vagtposter;
-    }
-
-    // get players info
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPv() {
-        return pv;
-    }
-
-    public int getLvl() {
-        return lvl;
-    }
-
-    public int getLon() {
-        return lvl * 1000 + 3000;
-    }
-    public int getDeaths() {
-        return deaths;
-    }
-
-    public int getKills() {
-        return kills;
-    }
-
-
-    // set some values
-    public void setLon(int lon) {
-        this.lon = lon;
-    }
-
-    public void setPv(int pv) {
-        this.pv = pv;
-    }
-
-    public void setLvl(int lvl) {
-        this.lvl = lvl;
-    }
-
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
-    }
-
-    public void setKills(int kills) {
-        this.kills = kills;
-    }
-
-    public int getExpSpecificLevel(int level) {
-        return (int) Math.pow((level/x),y);
-    }
-
-
-    public int getShardrate() {
-        return shardrate;
-    }
-
-    public void setShardrate(int shardrate) {
-        this.shardrate = shardrate;
+    public void setProperty(String key, Object value) {
+        properties.put(key, value);
     }
 }
