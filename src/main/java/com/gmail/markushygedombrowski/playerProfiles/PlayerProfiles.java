@@ -70,7 +70,6 @@ public class PlayerProfiles {
         try (Connection connection = sql.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM vagtprofile_old");
              ResultSet resultSet = statement.executeQuery()) {
-
             while (resultSet.next()) {
                 // Create a new PlayerProfile using the new constructor
                 UUID uuid = UUID.fromString(resultSet.getString("UUID"));
@@ -85,13 +84,16 @@ public class PlayerProfiles {
                 profile.setProperty("kills", resultSet.getInt("kills"));
                 profile.setProperty("exp", resultSet.getInt("exp"));
                 profile.setProperty("achievements", resultSet.getInt("achievements"));
-                profile.setProperty("shardrate", resultSet.getInt("shardsrate"));
+                profile.setProperty("shardsrate", resultSet.getInt("shardsrate"));
                 profile.setProperty("vagtposter", resultSet.getInt("vagtposter"));
 
                 // Save the new PlayerProfile to the new database
                 save(profile);
             }
+
         }
+
+
     }
 
 
@@ -165,7 +167,7 @@ public class PlayerProfiles {
         profile.setProperty("kills", 0);
         profile.setProperty("exp", 0);
         profile.setProperty("achievements", 0);
-        profile.setProperty("shardrate", 1);
+        profile.setProperty("shardsrate", 1);
         profile.setProperty("vagtposter", 0);
 
         System.out.println("name" + profile.getName());
