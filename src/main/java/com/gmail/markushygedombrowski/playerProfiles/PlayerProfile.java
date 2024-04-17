@@ -35,18 +35,18 @@ public class PlayerProfile {
         this.deliveredItems = deliveredItems;
     }
 
-    public void setXp(int xp) {
+    public void setXp(double xp) {
         setProperty("exp", xp);
-        if ((int) getProperty("exp") >= getXpToNextLvl()) {
-            LevelUpEvent event = new LevelUpEvent(false, Bukkit.getPlayer(uuid), (int) getProperty("level"), this, xp);
+        if ((double) getProperty("exp") >= getXpToNextLvl()) {
+            LevelUpEvent event = new LevelUpEvent(false, Bukkit.getPlayer(uuid), (int) getProperty("level"), this, (int) xp);
             Bukkit.getPluginManager().callEvent(event);
         }
 
     }
 
-    public int getXpToNextLvl() {
+    public double getXpToNextLvl() {
 
-        return (int) Math.pow(((int) getProperty("level") / x), y);
+        return Math.pow(((int) getProperty("level") / x), y);
     }
 
 
@@ -59,7 +59,7 @@ public class PlayerProfile {
         return name;
     }
 
-    public int getExpSpecificLevel(int level) {
+    public double getExpSpecificLevel(int level) {
         return (int) Math.pow((level / x), y);
     }
 
