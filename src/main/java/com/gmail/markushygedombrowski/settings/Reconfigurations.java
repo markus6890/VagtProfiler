@@ -26,7 +26,7 @@ public class Reconfigurations implements CommandExecutor {
             sender.sendMessage("§aYou do not have permission to do that");
             return true;
         }
-        if(alias.equalsIgnoreCase("printProperties")) {
+        if(alias.equalsIgnoreCase("printproperties")) {
             playerProfiles.getPropertiesNames().forEach(sender::sendMessage);
             return true;
         }
