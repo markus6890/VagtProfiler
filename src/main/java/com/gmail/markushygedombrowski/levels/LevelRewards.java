@@ -37,9 +37,9 @@ public class LevelRewards {
     }
 
     public void updatePlayerLevel(Player p, PlayerProfile playerProfile) {
-        int level = (int) playerProfile.getProperty("level");
+        int level = ((Double) playerProfile.getProperty("level")).intValue();
         if (level >= 25) {
-            if ((int) playerProfile.getProperty("shardsrate") == 1) {
+            if (((Double) playerProfile.getProperty("shardsrate")).intValue() == 1) {
                 playerProfile.setProperty("shardsrate", 2);
             }
         }

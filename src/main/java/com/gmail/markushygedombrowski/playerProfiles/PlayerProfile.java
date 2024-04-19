@@ -46,7 +46,7 @@ public class PlayerProfile {
 
     public double getXpToNextLvl() {
 
-        return Math.pow(((int) getProperty("level") / x), y);
+        return Math.pow(((double) getProperty("level") / x), y);
     }
 
 
