@@ -27,6 +27,7 @@ public class Reconfigurations implements CommandExecutor {
             return true;
         }
         if(alias.equalsIgnoreCase("printproperties")) {
+            sender.sendMessage("§aProperties:");
             playerProfiles.getPropertiesNames().forEach(sender::sendMessage);
             return true;
         }

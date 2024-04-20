@@ -63,40 +63,6 @@ public class PlayerProfiles {
         }
     }
 
-
-    public void migrateData() throws SQLException {
-        // Load all the data from the old database
-        try (Connection connection = sql.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM vagtprofile_old");
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                // Create a new PlayerProfile using the new constructor
-                UUID uuid = UUID.fromString(resultSet.getString("UUID"));
-                String name = resultSet.getString("name");
-                PlayerProfile profile = new PlayerProfile(uuid, name);
-
-                // For each property in the old PlayerProfile, add it to the properties map of the new PlayerProfile
-                profile.setProperty("pv", resultSet.getInt("pvs"));
-                profile.setProperty("level", resultSet.getInt("level"));
-                profile.setProperty("salary", resultSet.getInt("salary"));
-                profile.setProperty("deaths", resultSet.getInt("deaths"));
-                profile.setProperty("kills", resultSet.getInt("kills"));
-                profile.setProperty("exp", resultSet.getInt("exp"));
-                profile.setProperty("achievements", resultSet.getInt("achievements"));
-                profile.setProperty("shardsrate", resultSet.getInt("shardsrate"));
-                profile.setProperty("vagtposter", resultSet.getInt("vagtposter"));
-
-                // Save the new PlayerProfile to the new database
-                save(profile);
-                propertiesNames.addAll(profile.getProperties().keySet());
-            }
-
-        }
-
-
-    }
-
-
     public void save(PlayerProfile profile) throws SQLException {
         try (Connection connection = sql.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO vagtprofile (UUID, name, properties) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE name = ?, properties = ?");
@@ -129,9 +95,13 @@ public class PlayerProfiles {
                 PlayerProfile profile = new PlayerProfile(uuid, name);
                 for (Map.Entry<String, Object> entry : properties.entrySet()) {
                     profile.setProperty(entry.getKey(), entry.getValue());
+                    if (!propertiesNames.contains(entry.getKey())) {
+                        propertiesNames.add(entry.getKey());
+                    }
                 }
                 profile.setDeliveredItems(deliveredItemsLoader.loadDeliveredItems(uuid));
                 profileMap.put(uuid, profile);
+
             }
         }
     }
