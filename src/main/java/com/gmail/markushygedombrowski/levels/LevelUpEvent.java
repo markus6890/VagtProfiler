@@ -32,6 +32,7 @@ public class LevelUpEvent extends Event implements Cancellable {
     public int getLevel() {
         return level;
     }
+
     public PlayerProfile getPlayerProfile() {
         return playerProfile;
     }

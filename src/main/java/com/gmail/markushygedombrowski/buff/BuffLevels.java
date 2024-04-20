@@ -43,11 +43,13 @@ public class BuffLevels {
     }
 
     public void giveBuff(Player p) {
+        p.getActivePotionEffects().forEach(potionEffect -> p.removePotionEffect(potionEffect.getType()));
         p.addPotionEffect(new org.bukkit.potion.PotionEffect(org.bukkit.potion.PotionEffectType.SPEED, length,getSpeed()));
         p.addPotionEffect(new org.bukkit.potion.PotionEffect(org.bukkit.potion.PotionEffectType.INCREASE_DAMAGE, length,getStrength()));
         p.addPotionEffect(new org.bukkit.potion.PotionEffect(org.bukkit.potion.PotionEffectType.ABSORPTION, length, getAbsorption()));
         p.addPotionEffect(new org.bukkit.potion.PotionEffect(org.bukkit.potion.PotionEffectType.HEALTH_BOOST, length, getExtraHearts()));
         p.setMaxHealth(20 + getMaxHealth());
+        p.setHealth(p.getMaxHealth());
 
     }
 }

@@ -2,6 +2,7 @@ package com.gmail.markushygedombrowski.levels;
 
 import com.gmail.markushygedombrowski.settings.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class LevelManager {
 
     private ConfigManager configManager;
-    private HashMap<Integer, List<String>> levelLore = new HashMap<>();
+    private HashMap<Integer, Levels> levelMap = new HashMap<>();
 
     public LevelManager(ConfigManager configManager) {
         this.configManager = configManager;
@@ -17,14 +18,24 @@ public class LevelManager {
 
     public void load() {
         FileConfiguration config = configManager.getVagtLevelCfg();
-        for (String key: config.getKeys(false)) {
+        for (String key : config.getKeys(false)) {
             int level = Integer.parseInt(key);
             List<String> lore = config.getStringList(key + ".lore");
-            levelLore.put(level, lore);
+            List<String> permissions = config.getStringList(key + ".permissions");
+            List<String> regionsAccess = config.getStringList(key + ".regionsAccess");
+            int buffLevel = config.getInt(key + ".buffLevel");
+            int shardsrate = config.getInt(key + ".shardsrate");
+            double expboost = config.getDouble(key + ".expboost");
+            int moneyboost = config.getInt(key + ".moneyboost");
+            boolean randomBlomst = config.getBoolean(key + ".randomBlomst");
+            boolean randomGlass = config.getBoolean(key + ".randomGlass");
+            levelMap.put(level, new Levels(level, lore, permissions, regionsAccess, randomBlomst, randomGlass, buffLevel, shardsrate, expboost, moneyboost));
         }
     }
-    public List<String> getLevelLore(int level) {
-        return levelLore.get(level);
+
+    public Levels getLevel(int level) {
+        return levelMap.get(level);
     }
+
 }
 

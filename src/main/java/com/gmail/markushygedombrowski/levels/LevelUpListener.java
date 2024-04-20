@@ -19,7 +19,8 @@ public class LevelUpListener implements Listener {
     @EventHandler
     public void onLevelUp(LevelUpEvent event) {
         PlayerProfile playerProfile = event.getPlayerProfile();
-        if((int)playerProfile.getProperty("level") >= playerProfile.getXpToNextLvl()) {
+        if((Double) playerProfile.getProperty("level") >= playerProfile.getXpToNextLvl()) {
+
             levelUp(event.getPlayer(), playerProfile);
         }
 
