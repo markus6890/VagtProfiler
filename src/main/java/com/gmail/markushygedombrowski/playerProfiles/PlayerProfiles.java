@@ -79,6 +79,7 @@ public class PlayerProfiles {
     }
 
     public void load() throws SQLException {
+        profileMap.clear();
         try (Connection connection = sql.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM vagtprofile");
              ResultSet resultSet = statement.executeQuery()) {

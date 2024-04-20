@@ -1,5 +1,6 @@
 package com.gmail.markushygedombrowski;
 
+import com.gmail.markushygedombrowski.buff.BuffManager;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItemsLoader;
 import com.gmail.markushygedombrowski.deliveredItems.ItemProfileLoader;
 import com.gmail.markushygedombrowski.inventory.ChangeInvOnWarp;
@@ -31,6 +32,7 @@ public class VagtProfiler extends JavaPlugin {
     private ChangeInvOnWarp changeInventory;
     private InvManager invManager;
     private LevelRewards levelRewards;
+    private BuffManager buffManager;
 
     @Override
     public void onEnable() {
@@ -99,6 +101,8 @@ public class VagtProfiler extends JavaPlugin {
         invManager.loadInventories();
         changeInventory = new ChangeInvOnWarp(invManager);
         playerProfiles.load();
+        buffManager = new BuffManager(configM);
+        buffManager.load();
 
     }
 
@@ -165,6 +169,10 @@ public class VagtProfiler extends JavaPlugin {
 
     public LevelRewards getLevelRewards() {
         return levelRewards;
+    }
+
+    public BuffManager getBuffManager() {
+        return buffManager;
     }
 
     private boolean check() {

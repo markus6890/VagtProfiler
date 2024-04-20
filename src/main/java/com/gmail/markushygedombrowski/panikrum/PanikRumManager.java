@@ -13,6 +13,7 @@ public class PanikRumManager {
     }
     private HashMap<String, PanikRum> panikRumHashMap = new HashMap<>();
     public void load(FileConfiguration config) {
+        panikRumHashMap.clear();
         config.getConfigurationSection("panikrum").getKeys(false).forEach(key -> {
             String name = config.getString("panikrum." + key + ".name");
             Location location = (Location) config.get("panikrum." + key + ".location");

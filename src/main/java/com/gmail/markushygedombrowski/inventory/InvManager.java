@@ -74,6 +74,7 @@ public class InvManager {
     }
 
     public void loadInventories() throws SQLException, IOException {
+        playerInventories.clear();
         Connection connection = sql.getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM inventories");
         ResultSet resultSet = statement.executeQuery();
