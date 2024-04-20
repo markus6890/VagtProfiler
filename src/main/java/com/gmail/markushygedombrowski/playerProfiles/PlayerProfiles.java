@@ -125,15 +125,6 @@ public class PlayerProfiles {
         if (profile != null) return;
 
         int lon = settings.getLonp();
-        if (p.hasPermission("officer")) {
-            lon = settings.getLonoffi();
-        } else if (p.hasPermission("a-vagt")) {
-            lon = settings.getLona();
-        } else if (p.hasPermission("b-vagt")) {
-            lon = settings.getLonb();
-        } else if (p.hasPermission("c-vagt")) {
-            lon = settings.getLonc();
-        }
         PLayerDeliveredItems deliveredItems = new PLayerDeliveredItems(p.getUniqueId(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         profile = new PlayerProfile(p.getUniqueId(), p.getName());
         profile.setProperty("pv", 1);
@@ -145,6 +136,7 @@ public class PlayerProfiles {
         profile.setProperty("achievements", 0);
         profile.setProperty("shardsrate", 1);
         profile.setProperty("vagtposter", 0);
+        profile.setProperty("buff", 0);
 
         System.out.println("name" + profile.getName());
         System.out.println("UUID" + profile.getUuid());

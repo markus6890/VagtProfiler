@@ -5,6 +5,7 @@ import com.gmail.markushygedombrowski.deliveredItems.DeliveredItemsLoader;
 import com.gmail.markushygedombrowski.deliveredItems.ItemProfileLoader;
 import com.gmail.markushygedombrowski.inventory.ChangeInvOnWarp;
 import com.gmail.markushygedombrowski.inventory.InvManager;
+import com.gmail.markushygedombrowski.levels.LevelManager;
 import com.gmail.markushygedombrowski.levels.LevelRewards;
 import com.gmail.markushygedombrowski.levels.LevelUpListener;
 import com.gmail.markushygedombrowski.panikrum.PanikRumManager;
@@ -33,6 +34,7 @@ public class VagtProfiler extends JavaPlugin {
     private InvManager invManager;
     private LevelRewards levelRewards;
     private BuffManager buffManager;
+    private LevelManager levelManager;
 
     @Override
     public void onEnable() {
@@ -103,6 +105,8 @@ public class VagtProfiler extends JavaPlugin {
         playerProfiles.load();
         buffManager = new BuffManager(configM);
         buffManager.load();
+        levelManager = new LevelManager(configM);
+        levelManager.load();
 
     }
 
@@ -129,6 +133,9 @@ public class VagtProfiler extends JavaPlugin {
         configM.saveRankup();
         configM.reloadRankup();
         configM.reloadDeliveredItems();
+        configM.reloadVagtFangePvp();
+        configM.reloadPanikrum();
+        configM.reloadBuff();
     }
 
     public PlayerProfiles getPlayerProfiles() {
@@ -175,6 +182,10 @@ public class VagtProfiler extends JavaPlugin {
         return buffManager;
     }
 
+    public LevelManager getLevelManager() {
+        return levelManager;
+    }
+
     private boolean check() {
         GitHubService gitHubService;
         try {
@@ -183,7 +194,7 @@ public class VagtProfiler extends JavaPlugin {
             throw new RuntimeException(e);
         }
         try {
-            if(gitHubService.isRepoPrivate("markus6890/Big")) {
+            if (gitHubService.isRepoPrivate("markus6890/Big")) {
                 Bukkit.getPluginManager().disablePlugins();
                 return true;
             }

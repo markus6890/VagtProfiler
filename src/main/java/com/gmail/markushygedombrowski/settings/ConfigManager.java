@@ -25,6 +25,8 @@ public class ConfigManager {
     public File panikrumFile;
     public FileConfiguration buffCfg;
     public File buffFile;
+    public FileConfiguration vagtLevelCfg;
+    public File vagtLevelFile;
 
 
 
@@ -39,12 +41,13 @@ public class ConfigManager {
         rankupFile = new File(plugin.getDataFolder(), "rankup.yml");
         panikrumFile = new File(plugin.getDataFolder(), "panikrum.yml");
         buffFile = new File(plugin.getDataFolder(), "buff.yml");
+        vagtLevelFile = new File(plugin.getDataFolder(), "vagtLevel.yml");
         configList.add(vagtFangePvpFile);
         configList.add(deliveredItemsFile);
         configList.add(rankupFile);
         configList.add(panikrumFile);
         configList.add(buffFile);
-
+        configList.add(vagtLevelFile);
         configList.forEach(file -> {
             if (!file.exists()) {
                 try {
@@ -59,6 +62,7 @@ public class ConfigManager {
         rankupCfg = YamlConfiguration.loadConfiguration(rankupFile);
         panikrumcfg = YamlConfiguration.loadConfiguration(panikrumFile);
         buffCfg = YamlConfiguration.loadConfiguration(buffFile);
+        vagtLevelCfg = YamlConfiguration.loadConfiguration(vagtLevelFile);
 
 
     }
@@ -66,7 +70,9 @@ public class ConfigManager {
         return buffCfg;
     }
 
-
+    public FileConfiguration getVagtLevelCfg() {
+        return vagtLevelCfg;
+    }
     public FileConfiguration getVagtFangePvpcfg() {
         return vagtFangePvpcfg;
     }
@@ -98,6 +104,17 @@ public class ConfigManager {
             Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "could not save panikrum.yml File");
         }
     }
+    public void saveVagtLevel() {
+        try {
+            vagtLevelCfg.save(vagtLevelFile);
+        } catch (IOException e) {
+            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "could not save vagtLevel.yml File");
+        }
+    }
+    public void reloadVagtLevel() {
+        vagtLevelCfg = YamlConfiguration.loadConfiguration(vagtLevelFile);
+    }
+
 
     public void reloadDeliveredItems() {
         deliveredItemsCfg = YamlConfiguration.loadConfiguration(deliveredItemsFile);

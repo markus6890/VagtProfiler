@@ -17,7 +17,7 @@ public class BuffManager {
 
     public void load(){
         buffLevels.clear();
-        FileConfiguration config = configManager.getRankupCfg();
+        FileConfiguration config = configManager.getBuffCfg();
         for(String key : config.getKeys(false)){
             int level = Integer.parseInt(key);
             int speed = config.getInt(key + ".speed");

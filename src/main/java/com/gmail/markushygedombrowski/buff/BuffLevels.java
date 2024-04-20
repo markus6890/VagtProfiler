@@ -3,12 +3,12 @@ package com.gmail.markushygedombrowski.buff;
 import org.bukkit.entity.Player;
 
 public class BuffLevels {
-    private int level;
-    private int speed;
-    private int strength;
-    private int absorption;
-    private int extraHearts;
-    private int maxHealth;
+    private final int level;
+    private final int speed;
+    private final int strength;
+    private final int absorption;
+    private final int extraHearts;
+    private final int maxHealth;
     private final int length = 200000000;
 
     public BuffLevels(int level, int speed, int strength, int absorption, int extraHearts, int maxHealth) {
