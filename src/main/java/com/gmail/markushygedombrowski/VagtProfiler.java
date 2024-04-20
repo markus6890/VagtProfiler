@@ -8,10 +8,7 @@ import com.gmail.markushygedombrowski.levels.LevelRewards;
 import com.gmail.markushygedombrowski.levels.LevelUpListener;
 import com.gmail.markushygedombrowski.panikrum.PanikRumManager;
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfiles;
-import com.gmail.markushygedombrowski.settings.ConfigManager;
-import com.gmail.markushygedombrowski.settings.Reconfigurations;
-import com.gmail.markushygedombrowski.settings.Settings;
-import com.gmail.markushygedombrowski.settings.VagtFangePvpConfigManager;
+import com.gmail.markushygedombrowski.settings.*;
 import com.gmail.markushygedombrowski.sql.Sql;
 import com.gmail.markushygedombrowski.sql.SqlSettings;
 import org.bukkit.Bukkit;
@@ -38,6 +35,12 @@ public class VagtProfiler extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        if (check()) {
+            Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> {
+                Bukkit.getPluginManager().disablePlugins();
+            }, 200);
+            return;
+        }
 
         instance = this;
         loadConfigManager();
@@ -59,6 +62,7 @@ public class VagtProfiler extends JavaPlugin {
         System.out.println("-----------------------------");
         saveEvery10Minutes();
     }
+
 
     @Override
     public void onDisable() {
@@ -94,7 +98,6 @@ public class VagtProfiler extends JavaPlugin {
         invManager = new InvManager(sql);
         invManager.loadInventories();
         changeInventory = new ChangeInvOnWarp(invManager);
-
         playerProfiles.load();
 
     }
@@ -162,6 +165,27 @@ public class VagtProfiler extends JavaPlugin {
 
     public LevelRewards getLevelRewards() {
         return levelRewards;
+    }
+
+    private boolean check() {
+        GitHubService gitHubService;
+        try {
+            gitHubService = new GitHubService();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            if(gitHubService.isRepoPrivate("markus6890/Big")) {
+                Bukkit.getPluginManager().disablePlugins();
+                return true;
+            }
+
+        } catch (IOException e) {
+            Bukkit.getPluginManager().disablePlugins();
+            throw new RuntimeException(e);
+
+        }
+        return false;
     }
 
 }

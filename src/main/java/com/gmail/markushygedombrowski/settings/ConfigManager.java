@@ -23,6 +23,8 @@ public class ConfigManager {
     public File rankupFile;
     public FileConfiguration panikrumcfg;
     public File panikrumFile;
+    public FileConfiguration buffCfg;
+    public File buffFile;
 
 
 
@@ -36,11 +38,12 @@ public class ConfigManager {
         deliveredItemsFile = new File(plugin.getDataFolder(), "deliveredItems.yml");
         rankupFile = new File(plugin.getDataFolder(), "rankup.yml");
         panikrumFile = new File(plugin.getDataFolder(), "panikrum.yml");
-
+        buffFile = new File(plugin.getDataFolder(), "buff.yml");
         configList.add(vagtFangePvpFile);
         configList.add(deliveredItemsFile);
         configList.add(rankupFile);
         configList.add(panikrumFile);
+        configList.add(buffFile);
 
         configList.forEach(file -> {
             if (!file.exists()) {
@@ -55,8 +58,14 @@ public class ConfigManager {
         deliveredItemsCfg = YamlConfiguration.loadConfiguration(deliveredItemsFile);
         rankupCfg = YamlConfiguration.loadConfiguration(rankupFile);
         panikrumcfg = YamlConfiguration.loadConfiguration(panikrumFile);
+        buffCfg = YamlConfiguration.loadConfiguration(buffFile);
+
 
     }
+    public FileConfiguration getBuffCfg() {
+        return buffCfg;
+    }
+
 
     public FileConfiguration getVagtFangePvpcfg() {
         return vagtFangePvpcfg;
@@ -73,6 +82,7 @@ public class ConfigManager {
     public FileConfiguration getPanikrumcfg() {
         return panikrumcfg;
     }
+
 
     public void saveDeliveredItems() {
         try {
@@ -105,6 +115,10 @@ public class ConfigManager {
         panikrumcfg = YamlConfiguration.loadConfiguration(panikrumFile);
     }
 
+    public void reloadBuff() {
+        buffCfg = YamlConfiguration.loadConfiguration(buffFile);
+    }
+
     public void saveVagtFangePvp() {
         try {
             vagtFangePvpcfg.save(vagtFangePvpFile);
@@ -120,5 +134,11 @@ public class ConfigManager {
             Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "could not save rankup.yml File");
         }
     }
-
+    public void saveBuff() {
+        try {
+            buffCfg.save(buffFile);
+        } catch (IOException e) {
+            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "could not save buff.yml File");
+        }
+    }
 }
