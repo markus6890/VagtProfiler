@@ -19,8 +19,8 @@ public class LevelUpListener implements Listener {
     @EventHandler
     public void onLevelUp(LevelUpEvent event) {
         PlayerProfile playerProfile = event.getPlayerProfile();
-        if((Double) playerProfile.getProperty("level") >= playerProfile.getXpToNextLvl()) {
-
+        System.out.println("Level up event");
+        if(castPropertyToInt(playerProfile.getProperty("exp")) >= playerProfile.getXpToNextLvl()) {
             levelUp(event.getPlayer(), playerProfile);
         }
 
@@ -33,11 +33,17 @@ public class LevelUpListener implements Listener {
         p.sendMessage("Tillykke du er nu level §b" + profile.getProperty("level") + "§3!");
         p.sendMessage("Du skal bruge §b" + profile.getXpToNextLvl() + " §3exp til næste level");
         p.sendMessage("§6§l--------§a§lLevel Up!§6§l--------");
-        levelRewards.giveReward(p, ((Double)profile.getProperty("level")).intValue(), profile);
+        levelRewards.giveReward(p, ((Double)profile.getProperty("level")).intValue(), profile, true, true);
         try {
             playerProfiles.save(profile);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public int castPropertyToInt(Object key) {
+        if (key instanceof Double) {
+            return  (((Double) key).intValue());
+        }
+        return (int) key;
     }
 }

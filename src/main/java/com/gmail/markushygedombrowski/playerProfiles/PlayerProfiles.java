@@ -137,7 +137,7 @@ public class PlayerProfiles {
         profile.setProperty("shardsrate", 1);
         profile.setProperty("vagtposter", 0);
         profile.setProperty("buff", 0);
-
+        profile.setDeliveredItems(deliveredItems);
         System.out.println("name" + profile.getName());
         System.out.println("UUID" + profile.getUuid());
         save(profile);

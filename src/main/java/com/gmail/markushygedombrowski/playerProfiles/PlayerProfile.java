@@ -37,8 +37,10 @@ public class PlayerProfile {
 
     public void setXp(double xp) {
         setProperty("exp", xp);
-        if ((double) getProperty("exp") >= getXpToNextLvl()) {
-            LevelUpEvent event = new LevelUpEvent(false, Bukkit.getPlayer(uuid), ((Double) getProperty("level")).intValue(), this, (int) xp);
+        if (castPropertyToInt(getProperty("exp"))>= getXpToNextLvl()) {
+            int level = castPropertyToInt(getProperty("level"));
+
+            LevelUpEvent event = new LevelUpEvent(false, Bukkit.getPlayer(uuid), level, this, (int) xp);
             Bukkit.getPluginManager().callEvent(event);
         }
 
@@ -83,5 +85,11 @@ public class PlayerProfile {
 
     public void setProperty(String key, Object value) {
         properties.put(key, value);
+    }
+    public int castPropertyToInt(Object key) {
+        if (key instanceof Double) {
+            return  (((Double) key).intValue());
+        }
+        return (int) key;
     }
 }

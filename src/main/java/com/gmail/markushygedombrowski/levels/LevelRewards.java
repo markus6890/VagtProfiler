@@ -16,7 +16,7 @@ public class LevelRewards {
         this.levelManager = levelManager;
     }
 
-    public void giveReward(Player p, int level, PlayerProfile playerProfile) {
+    public void giveReward(Player p, int level, PlayerProfile playerProfile, boolean giveFlowers, boolean giveGlass) {
         Levels levels = levelManager.getLevel(level);
         if (levels == null) {
             return;
@@ -44,11 +44,11 @@ public class LevelRewards {
         if(levels.getRegionsAccess() != null) {
             playerProfile.setProperty("regionsAccess", levels.getRegionsAccess());
         }
-        if(levels.isRandomBlomst()) {
+        if(levels.isRandomBlomst() && giveFlowers) {
             Random random = new Random();
             p.getInventory().addItem(new ItemStack(Material.RED_ROSE, 1, (short) random.nextInt(8)));
         }
-        if(levels.isRandomGlass()) {
+        if(levels.isRandomGlass() && giveGlass) {
             Random random = new Random();
             p.getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short) random.nextInt(16)));
         }
@@ -56,8 +56,9 @@ public class LevelRewards {
 
     public void updatePlayerLevel(Player p, PlayerProfile playerProfile) {
         int level = ((Double) playerProfile.getProperty("level")).intValue();
+
         for (int i = 1; i <= level; i++) {
-            giveReward(p, i, playerProfile);
+            giveReward(p, i, playerProfile,false,false);
         }
     }
 }
