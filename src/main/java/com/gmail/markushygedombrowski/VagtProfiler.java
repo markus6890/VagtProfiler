@@ -56,7 +56,7 @@ public class VagtProfiler extends JavaPlugin {
             throw new RuntimeException(e);
         }
 
-        levelRewards = new LevelRewards(levelManager);
+        levelRewards = new LevelRewards(levelManager,settings);
         LevelUpListener levelUpListener = new LevelUpListener(playerProfiles, levelRewards);
         getServer().getPluginManager().registerEvents(levelUpListener, this);
         Reconfigurations reconfigurations = new Reconfigurations(this, playerProfiles);

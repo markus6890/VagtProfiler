@@ -1,6 +1,7 @@
 package com.gmail.markushygedombrowski.levels;
 
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfile;
+import com.gmail.markushygedombrowski.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
@@ -11,12 +12,15 @@ import java.util.Random;
 
 public class LevelRewards {
     private LevelManager levelManager;
-
-    public LevelRewards(LevelManager levelManager) {
+    private Settings settings;
+    public LevelRewards(LevelManager levelManager, Settings settings) {
         this.levelManager = levelManager;
+        this.settings = settings;
     }
 
     public void giveReward(Player p, int level, PlayerProfile playerProfile, boolean giveFlowers, boolean giveGlass) {
+        int salary = settings.getLonp() + (level * 1000);
+        playerProfile.setProperty("salary", salary);
         Levels levels = levelManager.getLevel(level);
         if (levels == null) {
             return;
@@ -55,7 +59,7 @@ public class LevelRewards {
     }
 
     public void updatePlayerLevel(Player p, PlayerProfile playerProfile) {
-        int level = ((Double) playerProfile.getProperty("level")).intValue();
+        int level = playerProfile.castPropertyToInt(playerProfile.getProperty("level"));
 
         for (int i = 1; i <= level; i++) {
             giveReward(p, i, playerProfile,false,false);
