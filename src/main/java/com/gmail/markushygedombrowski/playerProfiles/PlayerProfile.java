@@ -4,6 +4,7 @@ package com.gmail.markushygedombrowski.playerProfiles;
 import com.gmail.markushygedombrowski.levels.LevelUpEvent;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,6 +68,13 @@ public class PlayerProfile {
         return (int) Math.pow((level / x), y);
     }
 
+    public void sendMessage(Player player, String message) {
+        if(player.hasPermission("sended")) {
+            return;
+        }else {
+
+        }
+    }
     public boolean hasProperty(String key) {
         return properties.containsKey(key);
     }
