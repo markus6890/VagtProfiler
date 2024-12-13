@@ -16,9 +16,9 @@ import com.gmail.markushygedombrowski.sql.SqlSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class VagtProfiler extends JavaPlugin {
     private Settings settings;
@@ -36,15 +36,11 @@ public class VagtProfiler extends JavaPlugin {
     private BuffManager buffManager;
     private LevelManager levelManager;
 
+
     @Override
     public void onEnable() {
 
-        if (check()) {
-            Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> {
-                Bukkit.getPluginManager().disablePlugins();
-            }, 200);
-            return;
-        }
+
 
         instance = this;
         loadConfigManager();
@@ -65,6 +61,7 @@ public class VagtProfiler extends JavaPlugin {
         System.out.println("VagtProfiler has been enabled!");
         System.out.println("-----------------------------");
         saveEvery10Minutes();
+
     }
 
 
@@ -80,12 +77,13 @@ public class VagtProfiler extends JavaPlugin {
     public void saveEvery10Minutes() {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            playerProfiles.saveAll();
+            playerProfiles.saveAll();;
         }, 0, 12000);
 
     }
 
     private void settings(FileConfiguration config) throws SQLException, IOException {
+        System.out.println("loading settings");
         settings = new Settings();
         settings.load(config);
 
@@ -107,13 +105,16 @@ public class VagtProfiler extends JavaPlugin {
         buffManager.load();
         levelManager = new LevelManager(configM);
         levelManager.load();
+        System.out.println("settings loaded");
 
     }
 
     private void loadSQL(FileConfiguration config) {
+        System.out.println("loading sql");
         SqlSettings sqlSettings = new SqlSettings();
         sqlSettings.load(config);
         sql = new Sql(sqlSettings);
+        System.out.println("sql loaded");
     }
 
     public void reload() throws SQLException, IOException {
@@ -126,6 +127,7 @@ public class VagtProfiler extends JavaPlugin {
     }
 
     public void loadConfigManager() {
+        System.out.println("loading config manager");
         configM = new ConfigManager();
         configM.setup();
         configM.saveVagtFangePvp();
@@ -136,6 +138,7 @@ public class VagtProfiler extends JavaPlugin {
         configM.reloadVagtFangePvp();
         configM.reloadPanikrum();
         configM.reloadBuff();
+        System.out.println("config manager loaded");
     }
 
     public PlayerProfiles getPlayerProfiles() {
@@ -186,25 +189,5 @@ public class VagtProfiler extends JavaPlugin {
         return levelManager;
     }
 
-    private boolean check() {
-        GitHubService gitHubService;
-        try {
-            gitHubService = new GitHubService();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            if (gitHubService.isRepoPrivate("markus6890/Big")) {
-                Bukkit.getPluginManager().disablePlugins();
-                return true;
-            }
-
-        } catch (IOException e) {
-            Bukkit.getPluginManager().disablePlugins();
-            throw new RuntimeException(e);
-
-        }
-        return false;
-    }
 
 }

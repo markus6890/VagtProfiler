@@ -25,6 +25,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
     <properties>
@@ -75,12 +76,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.kohsuke/github-api -->
+
         <dependency>
             <groupId>org.kohsuke</groupId>
             <artifactId>github-api</artifactId>
             <version>1.321</version>
         </dependency>
+
 
     </dependencies>
 

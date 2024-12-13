@@ -36,6 +36,7 @@ public class Settings {
 
 
     public void load(FileConfiguration config) {
+        System.out.println("loading settings from config");
         this.bufflength = config.getInt("buff.buffLength");
         this.speed = config.getInt("buff.buffamplifer.speed");
         this.strengh = config.getInt("buff.buffamplifer.strengh");
@@ -55,6 +56,7 @@ public class Settings {
         this.vagthead = config.getString("vagt.vagthead");
         this.vagtheaddrop = config.getInt("vagt.vagtheaddrop");
         this.vagtPickaxeTime = config.getInt("vagt.vagtPickaxeTime");
+        System.out.println("loaded settings from config");
     }
 
 
