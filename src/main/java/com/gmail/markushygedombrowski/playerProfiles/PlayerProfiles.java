@@ -9,7 +9,6 @@ import com.gmail.markushygedombrowski.sql.Sql;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.entity.Player;
-
 import java.sql.*;
 import java.util.*;
 
@@ -31,6 +30,7 @@ public class PlayerProfiles {
 
     public void saveAll() {
         profileMap.values().forEach(profile -> {
+            deliveredItemsLoader.saveDeliveredItems(profile.getDeliveredItems());
             try {
                 save(profile);
             } catch (SQLException e) {
