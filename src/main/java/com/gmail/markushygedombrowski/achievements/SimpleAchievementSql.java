@@ -32,6 +32,7 @@ public class SimpleAchievementSql {
         }
     }
     public void saveCompletedAchievement(String uuid, String achievementId) {
+        System.out.println("SQL: Saving completed achievement: " + achievementId + " for UUID: " + uuid);
         String insertQuery = "INSERT INTO CompletedAchievements (UUID, AchievementID) VALUES (?, ?) ";
 
         try (Connection connection = sql.getConnection();

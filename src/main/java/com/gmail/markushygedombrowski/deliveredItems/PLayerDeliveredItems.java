@@ -273,9 +273,13 @@ public class PLayerDeliveredItems implements DeliveredItems {
                 diamondSword+= amount;
                 break;
         }
+        System.out.println("Incremented " + item + " by " + amount + ". New total: " + get(item));
         if(profile != null) {
+            System.out.println("Incremented Updating achievements for player: " + profile.getName());
             profile.updateAchievements();
+            return;
         }
+        System.out.println("Incremented Player profile is null, cannot update achievements.");
 
     }
 

@@ -96,8 +96,8 @@ public class VagtProfiler extends JavaPlugin {
         settings.load(config);
 
         deliveredItemsLoader = new DeliveredItemsLoader(sql);
-        playerProfiles = new PlayerProfiles(settings, sql, deliveredItemsLoader, achievementUpdater);
-
+        playerProfiles = new PlayerProfiles(settings, sql, deliveredItemsLoader);
+        playerProfiles.load();
         vagtFangePvpConfigManager = new VagtFangePvpConfigManager();
         vagtFangePvpConfigManager.load(configM.getVagtFangePvpcfg());
 
@@ -108,14 +108,18 @@ public class VagtProfiler extends JavaPlugin {
         invManager = new InvManager(sql);
         invManager.loadInventories();
         changeInventory = new ChangeInvOnWarp(invManager);
-        playerProfiles.load();
+
         buffManager = new BuffManager(configM);
         buffManager.load();
         levelManager = new LevelManager(configM);
         levelManager.load();
-        simpleAchievementManager = new SimpleAchievementManager(configM,playerProfiles, simpleAchievementSql);
+        simpleAchievementManager = new SimpleAchievementManager(configM, simpleAchievementSql);
+        simpleAchievementManager.setPlayerProfiles(playerProfiles); // Inject PlayerProfiles
         simpleAchievementManager.load();
         achievementUpdater = new AchievementUpdater(simpleAchievementManager);
+
+        playerProfiles.setAchievementUpdater(achievementUpdater);
+
         System.out.println("settings loaded");
 
     }

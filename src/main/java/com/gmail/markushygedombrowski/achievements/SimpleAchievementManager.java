@@ -10,19 +10,27 @@ import java.util.HashMap;
 public class SimpleAchievementManager {
     private HashMap<String, SimpleAchievement> achievements = new HashMap<>();
     private final ConfigManager configManager;
-    private final PlayerProfiles playerProfiles;
+    private PlayerProfiles playerProfiles;
     private final SimpleAchievementSql simpleAchievementSql;
 
-    public SimpleAchievementManager(ConfigManager configManager, PlayerProfiles playerProfiles, SimpleAchievementSql simpleAchievementSql) {
+
+    public SimpleAchievementManager(ConfigManager configManager, SimpleAchievementSql simpleAchievementSql) {
         this.configManager = configManager;
-        this.playerProfiles = playerProfiles;
+
         this.simpleAchievementSql = simpleAchievementSql;
+    }
+    public void setPlayerProfiles(PlayerProfiles playerProfiles) {
+        this.playerProfiles = playerProfiles;
+    }
+
+    public PlayerProfiles getPlayerProfiles() {
+        return playerProfiles;
     }
     public void load() {
         achievements.clear();
         FileConfiguration config = configManager.getAchievementsCfg();
         for (String key : config.getConfigurationSection("achievements.simple").getKeys(false)) {
-            String id = config.getString("achievements.simple." + key + ".id");
+            //String id = config.getString("achievements.simple." + key);
             String description = config.getString("achievements.simple." + key + ".description");
             int requirement = config.getInt("achievements.simple." + key + ".requirement");
             double modifier = config.getDouble("achievements.simple." + key + ".modifier");
@@ -30,8 +38,9 @@ public class SimpleAchievementManager {
             String dataProperty = config.getString("achievements.simple." + key + ".dataproperty");
 
             DataProperty property = DataProperty.valueOf(dataProperty);
-            SimpleAchievement achievement = new SimpleAchievement(id, description, requirement, modifier, type, property);
-            achievements.put(id, achievement);
+            SimpleAchievement achievement = new SimpleAchievement(key, description, requirement, modifier, type, property);
+            achievement.debug();
+            achievements.put(key, achievement);
         }
         addCompletedAchievements();
     }

@@ -122,14 +122,20 @@ public class PlayerProfile {
         return completedAchievements;
     }
     public void addCompletedAchievement(SimpleAchievement achievement) {
+        System.out.println("Adding completed achievement: " + achievement.getId());
         completedAchievements.put(achievement.getId(), achievement);
     }
     public boolean hasCompletedAchievement(String achievementId) {
         return completedAchievements.containsKey(achievementId);
     }
     public void updateAchievements() {
+        System.out.println("Updating achievements for player: " + name);
         if (achievementUpdater != null) {
+            System.out.println(" Not NULL Updating achievements for player: " + name);
             achievementUpdater.updateAchievements(this, deliveredItems);
+            return;
         }
+        System.out.println("AchievementUpdater is null for player: " + name);
+
     }
 }

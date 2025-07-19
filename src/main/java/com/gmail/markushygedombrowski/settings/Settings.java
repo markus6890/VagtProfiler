@@ -1,5 +1,6 @@
 package com.gmail.markushygedombrowski.settings;
 
+import com.gmail.markushygedombrowski.achievements.SimpleAchievementManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
@@ -154,5 +155,14 @@ public class Settings {
 
     public void setAktivbuff(boolean aktivbuff) {
         this.aktivbuff = aktivbuff;
+    }
+    private SimpleAchievementManager simpleAchievementManager;
+
+    public SimpleAchievementManager getSimpleAchievementManager() {
+        return simpleAchievementManager;
+    }
+
+    public void setSimpleAchievementManager(SimpleAchievementManager simpleAchievementManager) {
+        this.simpleAchievementManager = simpleAchievementManager;
     }
 }

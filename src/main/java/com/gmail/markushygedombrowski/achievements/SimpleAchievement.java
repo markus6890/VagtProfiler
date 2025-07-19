@@ -46,4 +46,12 @@ public class SimpleAchievement {
     public DataProperty getDataProperty() {
         return dataproperty;
     }
+    public void debug() {
+        System.out.println("Achievement ID: " + id);
+        System.out.println("Description: " + description);
+        System.out.println("Requirement: " + requirement);
+        System.out.println("Modifier: " + modifier);
+        System.out.println("Type: " + type);
+        System.out.println("Data Property Value: " + dataproperty);
+    }
 }

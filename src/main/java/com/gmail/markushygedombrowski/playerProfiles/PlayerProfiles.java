@@ -19,16 +19,14 @@ public class PlayerProfiles {
     private Settings settings;
     private Sql sql;
     private DeliveredItemsLoader deliveredItemsLoader;
-    private AchievementUpdater achievementUpdater;
 
-    public PlayerProfiles(Settings settings, Sql sql, DeliveredItemsLoader deliveredItemsLoader, AchievementUpdater achievementUpdater) {
+
+    public PlayerProfiles(Settings settings, Sql sql, DeliveredItemsLoader deliveredItemsLoader) {
         this.settings = settings;
         this.sql = sql;
         this.deliveredItemsLoader = deliveredItemsLoader;
-        this.achievementUpdater = achievementUpdater;
         createTableIfNotExist();
     }
-
 
     public void saveAll() {
         profileMap.values().forEach(profile -> {
@@ -107,6 +105,9 @@ public class PlayerProfiles {
 
             }
         }
+    }
+    public void setAchievementUpdater(AchievementUpdater achievementUpdater) {
+        profileMap.values().forEach(profile -> profile.setAchievementUpdater(achievementUpdater));
     }
 
 
