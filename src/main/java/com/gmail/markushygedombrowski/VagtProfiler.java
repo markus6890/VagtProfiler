@@ -1,5 +1,9 @@
 package com.gmail.markushygedombrowski;
 
+import com.gmail.markushygedombrowski.achievements.AchievementUpdater;
+import com.gmail.markushygedombrowski.achievements.SimpleAchievement;
+import com.gmail.markushygedombrowski.achievements.SimpleAchievementManager;
+import com.gmail.markushygedombrowski.achievements.SimpleAchievementSql;
 import com.gmail.markushygedombrowski.buff.BuffManager;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItemsLoader;
 import com.gmail.markushygedombrowski.deliveredItems.ItemProfileLoader;
@@ -35,6 +39,10 @@ public class VagtProfiler extends JavaPlugin {
     private LevelRewards levelRewards;
     private BuffManager buffManager;
     private LevelManager levelManager;
+    private AchievementUpdater achievementUpdater;
+    private SimpleAchievementSql simpleAchievementSql;
+    private SimpleAchievementManager simpleAchievementManager;
+
 
 
     @Override
@@ -105,6 +113,9 @@ public class VagtProfiler extends JavaPlugin {
         buffManager.load();
         levelManager = new LevelManager(configM);
         levelManager.load();
+        simpleAchievementManager = new SimpleAchievementManager(configM,playerProfiles, simpleAchievementSql);
+        simpleAchievementManager.load();
+        achievementUpdater = new AchievementUpdater(simpleAchievementManager);
         System.out.println("settings loaded");
 
     }
@@ -114,6 +125,8 @@ public class VagtProfiler extends JavaPlugin {
         SqlSettings sqlSettings = new SqlSettings();
         sqlSettings.load(config);
         sql = new Sql(sqlSettings);
+        simpleAchievementSql = new SimpleAchievementSql(sql);
+        simpleAchievementSql.createTableIfNotExist();
         System.out.println("sql loaded");
     }
 
@@ -187,6 +200,13 @@ public class VagtProfiler extends JavaPlugin {
 
     public LevelManager getLevelManager() {
         return levelManager;
+    }
+
+    public AchievementUpdater getAchievementUpdater() {
+        return achievementUpdater;
+    }
+    public SimpleAchievementManager getSimpleAchievementManager() {
+        return simpleAchievementManager;
     }
 
 

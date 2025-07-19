@@ -74,6 +74,9 @@ public class SimpleAchievementManager {
     public HashMap<String, SimpleAchievement> getAllAchievements() {
         return achievements;
     }
+    public SimpleAchievementSql getSimpleAchievementSql() {
+        return simpleAchievementSql;
+    }
 
 
 

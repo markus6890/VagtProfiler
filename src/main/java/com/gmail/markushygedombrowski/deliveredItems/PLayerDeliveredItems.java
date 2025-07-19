@@ -261,6 +261,7 @@ public class PLayerDeliveredItems implements DeliveredItems {
                 diamondSword+= amount;
                 break;
         }
+
     }
 
     @Override

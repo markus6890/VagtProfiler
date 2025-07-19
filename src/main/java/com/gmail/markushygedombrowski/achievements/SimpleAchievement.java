@@ -42,8 +42,7 @@ public class SimpleAchievement {
     public String getId() {
         return id;
     }
-    public DataProperty  getDataProperty() {
-
+    public DataProperty getDataProperty() {
         return dataproperty;
     }
 }

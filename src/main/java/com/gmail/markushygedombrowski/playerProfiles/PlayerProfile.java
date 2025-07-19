@@ -117,4 +117,7 @@ public class PlayerProfile {
     public void addCompletedAchievement(SimpleAchievement achievement) {
         completedAchievements.put(achievement.getId(), achievement);
     }
+    public boolean hasCompletedAchievement(String achievementId) {
+        return completedAchievements.containsKey(achievementId);
+    }
 }
