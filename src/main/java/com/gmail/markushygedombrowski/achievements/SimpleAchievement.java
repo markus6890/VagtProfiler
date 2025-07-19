@@ -1,5 +1,6 @@
 package com.gmail.markushygedombrowski.achievements;
 
+import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
 import com.gmail.markushygedombrowski.deliveredItems.PLayerDeliveredItems;
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfile;
 import com.gmail.markushygedombrowski.settings.DataProperty;
@@ -20,7 +21,7 @@ public class SimpleAchievement {
         this.type = type;
         this.dataproperty = dataproperty;
     }
-    public boolean isCompleted(PLayerDeliveredItems deliveredItems, PlayerProfile playerProfile) {
+    public boolean isCompleted(DeliveredItems deliveredItems, PlayerProfile playerProfile) {
         return dataproperty.getData(deliveredItems, playerProfile) >= requirement;
     }
     public String getType() {

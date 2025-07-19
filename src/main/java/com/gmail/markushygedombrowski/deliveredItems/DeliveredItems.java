@@ -20,6 +20,11 @@ public interface DeliveredItems {
     int getDiamondSword();
     int getHeads();
     int getBlazeRods();
+    int getTotalItems();
+    int getTotalGear();
+    int getTotalIronGear();
+    int getTotalDiamondGear();
+
     void setShards(int shards);
     void setBread(int bread);
     void setIronHelmet(int ironHelmet);

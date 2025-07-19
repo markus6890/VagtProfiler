@@ -186,18 +186,22 @@ public class PLayerDeliveredItems implements DeliveredItems {
         this.blazeRods = blazeRods;
     }
 
+    @Override
     public int getTotalItems() {
         return shards + bread + ironHelmet + ironChestplate + ironLeggings + ironBoots + ironSword +
                diamondHelmet + diamondChestplate + diamondLeggings + diamondBoots + diamondSword +
                heads + blazeRods;
     }
+    @Override
     public int getTotalGear() {
         return ironHelmet + ironChestplate + ironLeggings + ironBoots + ironSword +
                diamondHelmet + diamondChestplate + diamondLeggings + diamondBoots + diamondSword;
     }
+    @Override
     public int getTotalIronGear() {
         return ironHelmet + ironChestplate + ironLeggings + ironBoots + ironSword;
     }
+    @Override
     public int getTotalDiamondGear() {
         return diamondHelmet + diamondChestplate + diamondLeggings + diamondBoots + diamondSword;
     }

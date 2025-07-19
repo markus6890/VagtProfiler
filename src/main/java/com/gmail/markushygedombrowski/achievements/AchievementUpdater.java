@@ -1,5 +1,6 @@
 package com.gmail.markushygedombrowski.achievements;
 
+import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
 import com.gmail.markushygedombrowski.deliveredItems.PLayerDeliveredItems;
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfile;
 
@@ -11,7 +12,7 @@ public class AchievementUpdater {
         this.achievementManager = achievementManager;
     }
 
-    public void updateAchievements(PlayerProfile profile, PLayerDeliveredItems deliveredItems) {
+    public void updateAchievements(PlayerProfile profile, DeliveredItems deliveredItems) {
         for (SimpleAchievement achievement : achievementManager.getAllAchievements().values()) {
             if (achievement.isCompleted(deliveredItems, profile) && !profile.hasCompletedAchievement(achievement.getId())) {
                 profile.addCompletedAchievement(achievement);

@@ -1,5 +1,6 @@
 package com.gmail.markushygedombrowski.settings;
 
+import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
 import com.gmail.markushygedombrowski.deliveredItems.PLayerDeliveredItems;
 import com.gmail.markushygedombrowski.playerProfiles.PlayerProfile;
 
@@ -28,13 +29,13 @@ public enum DataProperty {
     PLAYER_KILLS((items, profile) -> (Integer) profile.getProperty("kills")),
     PLAYER_DEATHS((items, profile) -> (Integer) profile.getProperty("deaths"));
 
-    private final BiFunction<PLayerDeliveredItems, PlayerProfile, Integer> dataRetriever;
+    private final BiFunction<DeliveredItems, PlayerProfile, Integer> dataRetriever;
 
-    DataProperty(BiFunction<PLayerDeliveredItems, PlayerProfile, Integer> dataRetriever) {
+    DataProperty(BiFunction<DeliveredItems, PlayerProfile, Integer> dataRetriever) {
         this.dataRetriever = dataRetriever;
     }
 
-    public int getData(PLayerDeliveredItems playerDeliveredItems, PlayerProfile playerProfile) {
+    public int getData(DeliveredItems playerDeliveredItems, PlayerProfile playerProfile) {
         return dataRetriever.apply(playerDeliveredItems, playerProfile);
     }
 }
