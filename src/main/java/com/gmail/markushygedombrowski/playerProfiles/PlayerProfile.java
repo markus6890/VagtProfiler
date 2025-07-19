@@ -1,6 +1,7 @@
 package com.gmail.markushygedombrowski.playerProfiles;
 
 
+import com.gmail.markushygedombrowski.achievements.SimpleAchievement;
 import com.gmail.markushygedombrowski.levels.LevelUpEvent;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
 import org.bukkit.Bukkit;
@@ -17,6 +18,7 @@ public class PlayerProfile {
     private final UUID uuid;
     private final String name;
     private DeliveredItems deliveredItems;
+    private HashMap<String, SimpleAchievement> completedAchievements = new HashMap<>();
 
     private Map<String, Object> properties;
 
@@ -39,7 +41,9 @@ public class PlayerProfile {
         if (getProperty("exp") == null) {
             setProperty("exp", 0.0);
         }
-        double addedXp = castPropertyToInt(getProperty("expmultiplier")) * xp;
+
+        double xpMultiplier = (Double) getProperty("expmultiplier");
+        double addedXp = xpMultiplier * xp;
         double currentXp = castPropertyToInt(getProperty("exp"));
         setXp(currentXp + addedXp);
     }
@@ -106,5 +110,11 @@ public class PlayerProfile {
             return  (((Double) key).intValue());
         }
         return (int) key;
+    }
+    public HashMap<String, SimpleAchievement> getCompletedAchievements() {
+        return completedAchievements;
+    }
+    public void addCompletedAchievement(SimpleAchievement achievement) {
+        completedAchievements.put(achievement.getId(), achievement);
     }
 }

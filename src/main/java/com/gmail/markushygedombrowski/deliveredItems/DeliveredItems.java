@@ -35,7 +35,7 @@ public interface DeliveredItems {
     void setHeads(int heads);
     void setBlazeRods(int blazeRods);
     void debug();
-    void incrementItem(Material item);
+    void incrementItem(Material item, int amount);
 
     int get(Material material);
 

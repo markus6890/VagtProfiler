@@ -1,0 +1,20 @@
+achievements:
+  simple:
+    - id: "achievement_delivered_10"
+      description: "Aflever 10 stykker Armor"
+      requirement: 10
+      modifier: 0.05
+      type: "bonus"
+      dataproperty: "IRON_ARMOR_DELIVERED"
+    - id: "achievement_delivered_20"
+      description: "Lever 20 stykker rustning"
+      requirement: 20
+      modifier: 0.07
+      type: "bonus"
+      dataproperty: "IRON_ARMOR_DELIVERED"
+    - id: "achievement_delivered_50"
+      description: "Lever 50 stykker rustning"
+      requirement: 50
+      modifier: 0.15
+      type: "bonus"
+      dataproperty: "IRON_ARMOR_DELIVERED"

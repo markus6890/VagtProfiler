@@ -27,6 +27,8 @@ public class ConfigManager {
     public File buffFile;
     public FileConfiguration vagtLevelCfg;
     public File vagtLevelFile;
+    public FileConfiguration achievementsCfg;
+    public File achievementsFile;
 
 
 
@@ -42,6 +44,8 @@ public class ConfigManager {
         panikrumFile = new File(plugin.getDataFolder(), "panikrum.yml");
         buffFile = new File(plugin.getDataFolder(), "buff.yml");
         vagtLevelFile = new File(plugin.getDataFolder(), "vagtLevel.yml");
+        achievementsFile = new File(plugin.getDataFolder(), "achievements.yml");
+        configList.add(achievementsFile);
         configList.add(vagtFangePvpFile);
         configList.add(deliveredItemsFile);
         configList.add(rankupFile);
@@ -63,6 +67,7 @@ public class ConfigManager {
         panikrumcfg = YamlConfiguration.loadConfiguration(panikrumFile);
         buffCfg = YamlConfiguration.loadConfiguration(buffFile);
         vagtLevelCfg = YamlConfiguration.loadConfiguration(vagtLevelFile);
+        achievementsCfg = YamlConfiguration.loadConfiguration(achievementsFile);
 
 
     }
@@ -89,6 +94,16 @@ public class ConfigManager {
         return panikrumcfg;
     }
 
+    public FileConfiguration getAchievementsCfg() {
+        return achievementsCfg;
+    }
+    public void saveAchievements() {
+        try {
+            achievementsCfg.save(achievementsFile);
+        } catch (IOException e) {
+            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "could not save achievements.yml File");
+        }
+    }
 
     public void saveDeliveredItems() {
         try {
@@ -111,6 +126,11 @@ public class ConfigManager {
             Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "could not save vagtLevel.yml File");
         }
     }
+
+    public void reloadAchievements() {
+        achievementsCfg = YamlConfiguration.loadConfiguration(achievementsFile);
+    }
+
     public void reloadVagtLevel() {
         vagtLevelCfg = YamlConfiguration.loadConfiguration(vagtLevelFile);
     }

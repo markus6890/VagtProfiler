@@ -186,6 +186,21 @@ public class PLayerDeliveredItems implements DeliveredItems {
         this.blazeRods = blazeRods;
     }
 
+    public int getTotalItems() {
+        return shards + bread + ironHelmet + ironChestplate + ironLeggings + ironBoots + ironSword +
+               diamondHelmet + diamondChestplate + diamondLeggings + diamondBoots + diamondSword +
+               heads + blazeRods;
+    }
+    public int getTotalGear() {
+        return ironHelmet + ironChestplate + ironLeggings + ironBoots + ironSword +
+               diamondHelmet + diamondChestplate + diamondLeggings + diamondBoots + diamondSword;
+    }
+    public int getTotalIronGear() {
+        return ironHelmet + ironChestplate + ironLeggings + ironBoots + ironSword;
+    }
+    public int getTotalDiamondGear() {
+        return diamondHelmet + diamondChestplate + diamondLeggings + diamondBoots + diamondSword;
+    }
 
 
     @Override
@@ -207,43 +222,43 @@ public class PLayerDeliveredItems implements DeliveredItems {
     }
 
     @Override
-    public void incrementItem(Material item) {
+    public void incrementItem(Material item, int amount) {
         switch (item) {
-            case SEEDS:
-                shards++;
+            case PRISMARINE_SHARD:
+                shards += amount;
                 break;
             case BREAD:
-                bread++;
+                bread += amount;
                 break;
             case IRON_HELMET:
-                ironHelmet++;
+                ironHelmet+= amount;
                 break;
             case IRON_CHESTPLATE:
-                ironChestplate++;
+                ironChestplate+= amount;
                 break;
             case IRON_LEGGINGS:
-                ironLeggings++;
+                ironLeggings+= amount;
                 break;
             case IRON_BOOTS:
-                ironBoots++;
+                ironBoots+= amount;
                 break;
             case IRON_SWORD:
-                ironSword++;
+                ironSword+= amount;
                 break;
             case DIAMOND_HELMET:
-                diamondHelmet++;
+                diamondHelmet+= amount;
                 break;
             case DIAMOND_CHESTPLATE:
-                diamondChestplate++;
+                diamondChestplate+= amount;
                 break;
             case DIAMOND_LEGGINGS:
-                diamondLeggings++;
+                diamondLeggings+= amount;
                 break;
             case DIAMOND_BOOTS:
-                diamondBoots++;
+                diamondBoots+= amount;
                 break;
             case DIAMOND_SWORD:
-                diamondSword++;
+                diamondSword+= amount;
                 break;
         }
     }
