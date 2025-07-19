@@ -96,7 +96,7 @@ public class VagtProfiler extends JavaPlugin {
         settings.load(config);
 
         deliveredItemsLoader = new DeliveredItemsLoader(sql);
-        playerProfiles = new PlayerProfiles(settings, sql, deliveredItemsLoader);
+        playerProfiles = new PlayerProfiles(settings, sql, deliveredItemsLoader, achievementUpdater);
 
         vagtFangePvpConfigManager = new VagtFangePvpConfigManager();
         vagtFangePvpConfigManager.load(configM.getVagtFangePvpcfg());

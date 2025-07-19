@@ -1,5 +1,6 @@
 package com.gmail.markushygedombrowski.deliveredItems;
 
+import com.gmail.markushygedombrowski.playerProfiles.PlayerProfile;
 import org.bukkit.Material;
 
 import java.util.UUID;
@@ -39,6 +40,7 @@ public interface DeliveredItems {
     void setDiamondSword(int diamondSword);
     void setHeads(int heads);
     void setBlazeRods(int blazeRods);
+    void setPlayerProfile(PlayerProfile playerProfile);
     void debug();
     void incrementItem(Material item, int amount);
 

@@ -1,5 +1,7 @@
 package com.gmail.markushygedombrowski.deliveredItems;
 
+import com.gmail.markushygedombrowski.achievements.AchievementUpdater;
+import com.gmail.markushygedombrowski.playerProfiles.PlayerProfile;
 import org.bukkit.Material;
 
 import java.util.UUID;
@@ -20,7 +22,7 @@ public class PLayerDeliveredItems implements DeliveredItems {
     private int diamondSword;
     private int heads;
     private int blazeRods;
-
+    private PlayerProfile profile;
 
 
     public PLayerDeliveredItems(UUID uuid, int seed, int bread, int ironHelmet, int ironChestplate, int ironLeggings, int ironBoots, int ironSword, int diamondHelmet, int diamondChestplate, int diamondLeggings, int diamondBoots, int diamondSword, int heads, int blazeRods) {
@@ -39,7 +41,9 @@ public class PLayerDeliveredItems implements DeliveredItems {
         this.diamondSword = diamondSword;
         this.heads = heads;
         this.blazeRods = blazeRods;
+
     }
+
 
     @Override
     public UUID getUUID() {
@@ -205,6 +209,10 @@ public class PLayerDeliveredItems implements DeliveredItems {
     public int getTotalDiamondGear() {
         return diamondHelmet + diamondChestplate + diamondLeggings + diamondBoots + diamondSword;
     }
+    @Override
+    public void setPlayerProfile(PlayerProfile profile) {
+        this.profile = profile;
+    }
 
 
     @Override
@@ -264,6 +272,9 @@ public class PLayerDeliveredItems implements DeliveredItems {
             case DIAMOND_SWORD:
                 diamondSword+= amount;
                 break;
+        }
+        if(profile != null) {
+            profile.updateAchievements();
         }
 
     }

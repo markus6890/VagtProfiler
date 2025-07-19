@@ -1,6 +1,7 @@
 package com.gmail.markushygedombrowski.playerProfiles;
 
 
+import com.gmail.markushygedombrowski.achievements.AchievementUpdater;
 import com.gmail.markushygedombrowski.achievements.SimpleAchievement;
 import com.gmail.markushygedombrowski.levels.LevelUpEvent;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
@@ -21,6 +22,7 @@ public class PlayerProfile {
     private HashMap<String, SimpleAchievement> completedAchievements = new HashMap<>();
 
     private Map<String, Object> properties;
+    private AchievementUpdater achievementUpdater;
 
 
     public PlayerProfile(UUID uuid, String name) {
@@ -31,9 +33,13 @@ public class PlayerProfile {
 
 
     public DeliveredItems getDeliveredItems() {
+
         return deliveredItems;
     }
 
+    public void setAchievementUpdater(AchievementUpdater achievementUpdater) {
+        this.achievementUpdater = achievementUpdater;
+    }
     public void setDeliveredItems(DeliveredItems deliveredItems) {
         this.deliveredItems = deliveredItems;
     }
@@ -104,6 +110,7 @@ public class PlayerProfile {
 
     public void setProperty(String key, Object value) {
         properties.put(key, value);
+        updateAchievements();
     }
     public int castPropertyToInt(Object key) {
         if (key instanceof Double) {
@@ -119,5 +126,10 @@ public class PlayerProfile {
     }
     public boolean hasCompletedAchievement(String achievementId) {
         return completedAchievements.containsKey(achievementId);
+    }
+    public void updateAchievements() {
+        if (achievementUpdater != null) {
+            achievementUpdater.updateAchievements(this, deliveredItems);
+        }
     }
 }

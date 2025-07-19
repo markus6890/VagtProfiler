@@ -1,6 +1,7 @@
 package com.gmail.markushygedombrowski.playerProfiles;
 
 
+import com.gmail.markushygedombrowski.achievements.AchievementUpdater;
 import com.gmail.markushygedombrowski.settings.Settings;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItems;
 import com.gmail.markushygedombrowski.deliveredItems.DeliveredItemsLoader;
@@ -16,14 +17,15 @@ public class PlayerProfiles {
     private Map<UUID, PlayerProfile> profileMap = new HashMap<>();
     private List<String> propertiesNames = new ArrayList<>();
     private Settings settings;
-
     private Sql sql;
     private DeliveredItemsLoader deliveredItemsLoader;
+    private AchievementUpdater achievementUpdater;
 
-    public PlayerProfiles(Settings settings, Sql sql, DeliveredItemsLoader deliveredItemsLoader) {
+    public PlayerProfiles(Settings settings, Sql sql, DeliveredItemsLoader deliveredItemsLoader, AchievementUpdater achievementUpdater) {
         this.settings = settings;
         this.sql = sql;
         this.deliveredItemsLoader = deliveredItemsLoader;
+        this.achievementUpdater = achievementUpdater;
         createTableIfNotExist();
     }
 
@@ -92,7 +94,6 @@ public class PlayerProfiles {
                 String propertiesJson = resultSet.getString("properties");
                 Map<String, Object> properties = new Gson().fromJson(propertiesJson, new TypeToken<Map<String, Object>>() {
                 }.getType());
-
                 PlayerProfile profile = new PlayerProfile(uuid, name);
                 for (Map.Entry<String, Object> entry : properties.entrySet()) {
                     profile.setProperty(entry.getKey(), entry.getValue());
@@ -101,6 +102,7 @@ public class PlayerProfiles {
                     }
                 }
                 profile.setDeliveredItems(deliveredItemsLoader.loadDeliveredItems(uuid));
+                profile.getDeliveredItems().setPlayerProfile(profile);
                 profileMap.put(uuid, profile);
 
             }
@@ -125,7 +127,6 @@ public class PlayerProfiles {
         if (profile != null) return;
 
         int lon = settings.getLonp();
-        PLayerDeliveredItems deliveredItems = new PLayerDeliveredItems(p.getUniqueId(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         profile = new PlayerProfile(p.getUniqueId(), p.getName());
         profile.setProperty("pv", 1);
         profile.setProperty("level", 1);
@@ -138,6 +139,7 @@ public class PlayerProfiles {
         profile.setProperty("vagtposter", 0);
         profile.setProperty("buff", 0);
         profile.setProperty("expmultiplier", 1.0);
+        PLayerDeliveredItems deliveredItems = new PLayerDeliveredItems(p.getUniqueId(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         profile.setDeliveredItems(deliveredItems);
         System.out.println("name" + profile.getName());
         System.out.println("UUID" + profile.getUuid());
