@@ -137,6 +137,7 @@ public class PlayerProfiles {
         profile.setProperty("shardsrate", 1);
         profile.setProperty("vagtposter", 0);
         profile.setProperty("buff", 0);
+        profile.setProperty("expmultiplier", 1.0);
         profile.setDeliveredItems(deliveredItems);
         System.out.println("name" + profile.getName());
         System.out.println("UUID" + profile.getUuid());
@@ -144,19 +145,20 @@ public class PlayerProfiles {
     }
 
     public void removeVagt(PlayerProfile profile) {
-        try {
-            Connection connection = sql.getConnection();
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM vagtprofile WHERE UUID = ?");
-            statement.setString(1, profile.getUuid().toString());
-            statement.executeUpdate();
+        try (Connection connection = sql.getConnection();
+             PreparedStatement deleteProfileStmt = connection.prepareStatement("DELETE FROM vagtprofile WHERE UUID = ?");
+             PreparedStatement deleteItemsStmt = connection.prepareStatement("DELETE FROM DeliveredItems WHERE UUID = ?")) {
 
-            statement = connection.prepareStatement("DELETE FROM DeliveredItems WHERE UUID = ?");
-            statement.setString(1, profile.getUuid().toString());
-            statement.executeUpdate();
-            sql.closeAllSQL(connection, statement, null);
+            deleteProfileStmt.setString(1, profile.getUuid().toString());
+            deleteProfileStmt.executeUpdate();
+
+            deleteItemsStmt.setString(1, profile.getUuid().toString());
+            deleteItemsStmt.executeUpdate();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         profileMap.remove(profile.getUuid());
     }
 

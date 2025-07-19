@@ -35,7 +35,14 @@ public class PlayerProfile {
     public void setDeliveredItems(DeliveredItems deliveredItems) {
         this.deliveredItems = deliveredItems;
     }
-
+    public void addExp(double xp) {
+        if (getProperty("exp") == null) {
+            setProperty("exp", 0.0);
+        }
+        double addedXp = castPropertyToInt(getProperty("expmultiplier")) * xp;
+        double currentXp = castPropertyToInt(getProperty("exp"));
+        setXp(currentXp + addedXp);
+    }
     public void setXp(double xp) {
         setProperty("exp", xp);
         if (castPropertyToInt(getProperty("exp"))>= getXpToNextLvl()) {
