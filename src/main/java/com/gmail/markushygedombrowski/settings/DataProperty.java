@@ -27,6 +27,7 @@ public enum DataProperty {
     TOTAL_ARMOR_DELIVERED((items, profile) -> items.getTotalGear()),
     TOTAL_ITEMS_DELIVERED((items, profile) -> items.getTotalItems()),
     PLAYER_KILLS((items, profile) -> profile.castPropertyToInt(profile.getProperty("kills"))),
+    VAGT_POSTER((items,profile) -> profile.castPropertyToInt(profile.getProperty("vagtposter"))),
     PLAYER_DEATHS((items, profile) -> profile.castPropertyToInt(profile.getProperty("deaths")));
 
     private final BiFunction<DeliveredItems, PlayerProfile, Integer> dataRetriever;
