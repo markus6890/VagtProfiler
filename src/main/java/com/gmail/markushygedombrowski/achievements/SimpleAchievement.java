@@ -32,11 +32,11 @@ public class SimpleAchievement {
         return type;
     }
 
-    public double getModifier() {
+    public Double getModifier() {
         return modifier;
     }
 
-    public int getRequirement() {
+    public Integer getRequirement() {
         return requirement;
     }
 

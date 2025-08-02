@@ -47,7 +47,7 @@ public class SimpleAchievementManager {
             achievement.debug();
             achievements.put(key, achievement);
             if (!achievementGroups.containsKey(group)) {
-                achievementGroups.put(group, 0);
+                achievementGroups.put(group, 1);
             } else {
                 achievementGroups.put(group, achievementGroups.get(group) + 1);
             }

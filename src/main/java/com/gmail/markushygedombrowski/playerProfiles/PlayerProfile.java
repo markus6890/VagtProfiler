@@ -123,6 +123,7 @@ public class PlayerProfile {
         return completedAchievements;
     }
     public void addCompletedAchievement(SimpleAchievement achievement) {
+        System.out.println("Adding completed achievement: " + achievement.getId() + " to player: " + name);
         completedAchievements.put(achievement.getId(), achievement);
         addCompletedAchievementGrouped(achievement.getGroup());
     }
@@ -149,6 +150,7 @@ public class PlayerProfile {
 
     }
     public void addCompletedAchievementGrouped(String group) {
+        System.out.println("Adding completed achievement to group: " + group);
         completedAchievementsGrouped.put(group, completedAchievementsGrouped.getOrDefault(group, 0) + 1);
     }
     public HashMap<String, Integer> getCompletedAchievementsGrouped() {
