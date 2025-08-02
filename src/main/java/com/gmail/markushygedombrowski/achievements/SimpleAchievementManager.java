@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SimpleAchievementManager {
     private HashMap<String, SimpleAchievement> achievements = new HashMap<>();
@@ -99,6 +100,11 @@ public class SimpleAchievementManager {
     }
     public SimpleAchievementSql getSimpleAchievementSql() {
         return simpleAchievementSql;
+    }
+    public List<SimpleAchievement> getAchievementsByGroup(String group) {
+        return achievements.values().stream()
+                .filter(simpleAchievement -> simpleAchievement.getGroup().equalsIgnoreCase(group))
+                .collect(Collectors.toList());
     }
 
 
