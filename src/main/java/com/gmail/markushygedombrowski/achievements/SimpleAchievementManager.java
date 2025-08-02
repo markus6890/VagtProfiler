@@ -5,13 +5,16 @@ import com.gmail.markushygedombrowski.settings.ConfigManager;
 import com.gmail.markushygedombrowski.settings.DataProperty;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SimpleAchievementManager {
     private HashMap<String, SimpleAchievement> achievements = new HashMap<>();
     private final ConfigManager configManager;
     private PlayerProfiles playerProfiles;
     private final SimpleAchievementSql simpleAchievementSql;
+    private List<String> achievementGroups = new ArrayList<>();
 
 
     public SimpleAchievementManager(ConfigManager configManager, SimpleAchievementSql simpleAchievementSql) {
@@ -42,6 +45,9 @@ public class SimpleAchievementManager {
             SimpleAchievement achievement = new SimpleAchievement(key, description, requirement, modifier, type, property,group);
             achievement.debug();
             achievements.put(key, achievement);
+            if (!achievementGroups.contains(group)) {
+                achievementGroups.add(group);
+            }
         }
         addCompletedAchievements();
     }
@@ -80,6 +86,9 @@ public class SimpleAchievementManager {
 
     public SimpleAchievement getAchievement(String id) {
         return achievements.get(id);
+    }
+    public List<String> getAchievementGroups() {
+        return achievementGroups;
     }
 
     public HashMap<String, SimpleAchievement> getAllAchievements() {
