@@ -122,8 +122,19 @@ public class PlayerProfile {
         return completedAchievements;
     }
     public void addCompletedAchievement(SimpleAchievement achievement) {
-        System.out.println("Adding completed achievement: " + achievement.getId());
         completedAchievements.put(achievement.getId(), achievement);
+    }
+
+    public double getAchievementTypeModifier(String type) {
+        return completedAchievements.values().stream().filter(simpleAchievement -> simpleAchievement.getType().equalsIgnoreCase(type))
+                .mapToDouble(SimpleAchievement::getModifier)
+                .sum();
+    }
+    public double getCombinedAchievementModifier() {
+        double penaltyModifier = getAchievementTypeModifier("penalty");
+        double bonusModifier = getAchievementTypeModifier("bonus");
+
+        return bonusModifier - penaltyModifier;
     }
     public boolean hasCompletedAchievement(String achievementId) {
         return completedAchievements.containsKey(achievementId);
