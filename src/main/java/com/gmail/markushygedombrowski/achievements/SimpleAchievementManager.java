@@ -44,7 +44,6 @@ public class SimpleAchievementManager {
 
             DataProperty property = DataProperty.valueOf(dataProperty);
             SimpleAchievement achievement = new SimpleAchievement(key, description, requirement, modifier, type, property,group);
-            achievement.debug();
             achievements.put(key, achievement);
             if (!achievementGroups.containsKey(group)) {
                 achievementGroups.put(group, 1);
