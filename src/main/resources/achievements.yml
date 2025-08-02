@@ -28,3 +28,10 @@ achievements:
       modifier: 0.15
       type: "Penalty"
       dataproperty: "PLAYER_DEATHS"
+    achievement_kills_10:
+      group: "Kills"
+      description: "Dræb 10 spillere"
+      requirement: 10
+      modifier: 0.05
+      type: "bonus"
+      dataproperty: "PLAYER_KILLS"

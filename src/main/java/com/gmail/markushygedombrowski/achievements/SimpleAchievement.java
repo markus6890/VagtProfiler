@@ -13,13 +13,17 @@ public class SimpleAchievement {
     private final String type;
     private final DataProperty dataproperty;
 
-    public SimpleAchievement(String id, String description, int requirement, double modifier, String type, DataProperty dataproperty) {
+
+    private final String group;
+
+    public SimpleAchievement(String id, String description, int requirement, double modifier, String type, DataProperty dataproperty, String group) {
         this.id = id;
         this.description = description;
         this.requirement = requirement;
         this.modifier = modifier;
         this.type = type;
         this.dataproperty = dataproperty;
+        this.group = group;
     }
     public boolean isCompleted(DeliveredItems deliveredItems, PlayerProfile playerProfile) {
         return dataproperty.getData(deliveredItems, playerProfile) >= requirement;
@@ -45,6 +49,9 @@ public class SimpleAchievement {
     }
     public DataProperty getDataProperty() {
         return dataproperty;
+    }
+    public String getGroup() {
+        return group;
     }
     public void debug() {
         System.out.println("Achievement ID: " + id);

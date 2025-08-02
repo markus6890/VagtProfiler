@@ -30,15 +30,16 @@ public class SimpleAchievementManager {
         achievements.clear();
         FileConfiguration config = configManager.getAchievementsCfg();
         for (String key : config.getConfigurationSection("achievements.simple").getKeys(false)) {
-            //String id = config.getString("achievements.simple." + key);
+            String group = config.getString("achievements.simple." + key + ".group");
             String description = config.getString("achievements.simple." + key + ".description");
             int requirement = config.getInt("achievements.simple." + key + ".requirement");
             double modifier = config.getDouble("achievements.simple." + key + ".modifier");
             String type = config.getString("achievements.simple." + key + ".type");
             String dataProperty = config.getString("achievements.simple." + key + ".dataproperty");
 
+
             DataProperty property = DataProperty.valueOf(dataProperty);
-            SimpleAchievement achievement = new SimpleAchievement(key, description, requirement, modifier, type, property);
+            SimpleAchievement achievement = new SimpleAchievement(key, description, requirement, modifier, type, property,group);
             achievement.debug();
             achievements.put(key, achievement);
         }
@@ -50,7 +51,8 @@ public class SimpleAchievementManager {
         config.set("achievements.simple", null);
         for (SimpleAchievement achievement : achievements.values()) {
             String path = "achievements.simple." + achievement.getId();
-            config.set(path + ".id", achievement.getId());
+
+            config.set(path + ".group", achievement.getGroup());
             config.set(path + ".description", achievement.getDescription());
             config.set(path + ".requirement", achievement.getRequirement());
             config.set(path + ".modifier", achievement.getModifier());
