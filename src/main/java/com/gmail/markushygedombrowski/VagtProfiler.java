@@ -85,7 +85,7 @@ public class VagtProfiler extends JavaPlugin {
     public void saveEvery10Minutes() {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            playerProfiles.saveAll();;
+            playerProfiles.saveAll();
         }, 0, 12000);
 
     }
@@ -136,7 +136,6 @@ public class VagtProfiler extends JavaPlugin {
 
     public void reload() throws SQLException, IOException {
         reloadConfig();
-        FileConfiguration config = getConfig();
         loadConfigManager();
         settings(getConfig());
 

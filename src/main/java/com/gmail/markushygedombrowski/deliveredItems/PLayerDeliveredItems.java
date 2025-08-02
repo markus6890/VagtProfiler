@@ -54,10 +54,7 @@ public class PLayerDeliveredItems implements DeliveredItems {
     }
 
     private void updateAchievements() {
-        Optional.ofNullable(profile).ifPresent(p -> {
-            System.out.println("Updating achievements for player: " + p.getName());
-            p.updateAchievements();
-        });
+        Optional.ofNullable(profile).ifPresent(PlayerProfile::updateAchievements);
     }
 
     @Override

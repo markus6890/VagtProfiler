@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum DeliverableItem {
-    SHARDS(Material.PRISMARINE_SHARD),
+    SHARDS(Material.PRISMARINE_CRYSTALS),
     BREAD(Material.BREAD),
     IRON_HELMET(Material.IRON_HELMET),
     IRON_CHESTPLATE(Material.IRON_CHESTPLATE),

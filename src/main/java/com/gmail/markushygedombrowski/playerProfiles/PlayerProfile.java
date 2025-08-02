@@ -129,13 +129,10 @@ public class PlayerProfile {
         return completedAchievements.containsKey(achievementId);
     }
     public void updateAchievements() {
-        System.out.println("Updating achievements for player: " + name);
         if (achievementUpdater != null) {
-            System.out.println(" Not NULL Updating achievements for player: " + name);
             achievementUpdater.updateAchievements(this, deliveredItems);
             return;
         }
-        System.out.println("AchievementUpdater is null for player: " + name);
 
     }
 }
