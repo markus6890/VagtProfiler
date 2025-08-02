@@ -20,6 +20,7 @@ public class PlayerProfile {
     private final String name;
     private DeliveredItems deliveredItems;
     private HashMap<String, SimpleAchievement> completedAchievements = new HashMap<>();
+    private HashMap<String, Integer> completedAchievementsGrouped = new HashMap<>();
 
     private Map<String, Object> properties;
     private AchievementUpdater achievementUpdater;
@@ -123,6 +124,7 @@ public class PlayerProfile {
     }
     public void addCompletedAchievement(SimpleAchievement achievement) {
         completedAchievements.put(achievement.getId(), achievement);
+        addCompletedAchievementGrouped(achievement.getGroup());
     }
 
     public double getAchievementTypeModifier(String type) {
@@ -146,4 +148,11 @@ public class PlayerProfile {
         }
 
     }
+    public void addCompletedAchievementGrouped(String group) {
+        completedAchievementsGrouped.put(group, completedAchievementsGrouped.getOrDefault(group, 0) + 1);
+    }
+    public HashMap<String, Integer> getCompletedAchievementsGrouped() {
+        return completedAchievementsGrouped;
+    }
+
 }

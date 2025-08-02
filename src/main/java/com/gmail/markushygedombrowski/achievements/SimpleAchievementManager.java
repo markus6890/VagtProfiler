@@ -14,7 +14,7 @@ public class SimpleAchievementManager {
     private final ConfigManager configManager;
     private PlayerProfiles playerProfiles;
     private final SimpleAchievementSql simpleAchievementSql;
-    private List<String> achievementGroups = new ArrayList<>();
+    private HashMap<String, Integer> achievementGroups = new HashMap<>();
 
 
     public SimpleAchievementManager(ConfigManager configManager, SimpleAchievementSql simpleAchievementSql) {
@@ -45,9 +45,12 @@ public class SimpleAchievementManager {
             SimpleAchievement achievement = new SimpleAchievement(key, description, requirement, modifier, type, property,group);
             achievement.debug();
             achievements.put(key, achievement);
-            if (!achievementGroups.contains(group)) {
-                achievementGroups.add(group);
+            if (!achievementGroups.containsKey(group)) {
+                achievementGroups.put(group, 0);
+            } else {
+                achievementGroups.put(group, achievementGroups.get(group) + 1);
             }
+
         }
         addCompletedAchievements();
     }
@@ -87,7 +90,7 @@ public class SimpleAchievementManager {
     public SimpleAchievement getAchievement(String id) {
         return achievements.get(id);
     }
-    public List<String> getAchievementGroups() {
+    public HashMap<String, Integer> getAchievementGroups() {
         return achievementGroups;
     }
 
