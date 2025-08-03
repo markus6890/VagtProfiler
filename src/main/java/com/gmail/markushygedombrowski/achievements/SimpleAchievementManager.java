@@ -32,6 +32,7 @@ public class SimpleAchievementManager {
     }
     public void load() {
         achievements.clear();
+        System.out.println("ACHIEVEMENT MANAGER: Loading achievements");
         FileConfiguration config = configManager.getAchievementsCfg();
         for (String key : config.getConfigurationSection("achievements.simple").getKeys(false)) {
             String group = config.getString("achievements.simple." + key + ".group");

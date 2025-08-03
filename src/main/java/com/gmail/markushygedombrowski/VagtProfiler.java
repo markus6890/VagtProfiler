@@ -45,6 +45,7 @@ public class VagtProfiler extends JavaPlugin {
 
 
 
+
     @Override
     public void onEnable() {
 
@@ -149,11 +150,13 @@ public class VagtProfiler extends JavaPlugin {
         configM.saveVagtFangePvp();
         configM.saveDeliveredItems();
         configM.saveRankup();
+        configM.saveAchievements();
         configM.reloadRankup();
         configM.reloadDeliveredItems();
         configM.reloadVagtFangePvp();
         configM.reloadPanikrum();
         configM.reloadBuff();
+        configM.reloadAchievements();
         System.out.println("config manager loaded");
     }
 
