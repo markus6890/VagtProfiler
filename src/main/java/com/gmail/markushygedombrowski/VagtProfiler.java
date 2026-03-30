@@ -135,10 +135,16 @@ public class VagtProfiler extends JavaPlugin {
         System.out.println("sql loaded");
     }
 
-    public void reload() throws SQLException, IOException {
-        reloadConfig();
+    public void reload() {
+        instance = this;
         loadConfigManager();
-        settings(getConfig());
+        saveDefaultConfig();
+        loadSQL(getConfig());
+        try {
+            settings(getConfig());
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }

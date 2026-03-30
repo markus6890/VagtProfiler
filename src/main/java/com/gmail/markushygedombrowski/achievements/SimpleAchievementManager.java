@@ -53,6 +53,7 @@ public class SimpleAchievementManager {
             }
 
         }
+        debugAchievements();
         addCompletedAchievements();
     }
 
@@ -105,6 +106,16 @@ public class SimpleAchievementManager {
         return achievements.values().stream()
                 .filter(simpleAchievement -> simpleAchievement.getGroup().equalsIgnoreCase(group))
                 .collect(Collectors.toList());
+    }
+
+    public void debugAchievements() {
+        System.out.println("Achievements: " + achievements.size());
+        for (SimpleAchievement achievement : achievements.values()) {
+            System.out.println("ID: " + achievement.getId() + ", Description: " + achievement.getDescription() +
+                    ", Requirement: " + achievement.getRequirement() + ", Modifier: " + achievement.getModifier() +
+                    ", Type: " + achievement.getType() + ", DataProperty: " + achievement.getDataProperty().name() +
+                    ", Group: " + achievement.getGroup());
+        }
     }
 
 

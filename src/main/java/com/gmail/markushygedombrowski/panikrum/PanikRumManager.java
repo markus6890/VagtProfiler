@@ -12,6 +12,7 @@ public class PanikRumManager {
         this.configManager = configManager;
     }
     private HashMap<String, PanikRum> panikRumHashMap = new HashMap<>();
+
     public void load(FileConfiguration config) {
         panikRumHashMap.clear();
         config.getConfigurationSection("panikrum").getKeys(false).forEach(key -> {

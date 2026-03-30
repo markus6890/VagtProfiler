@@ -39,6 +39,8 @@ public class PlayerProfiles {
         });
 
 
+
+
     }
 
     public void createTableIfNotExist() {

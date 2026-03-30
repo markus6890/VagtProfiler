@@ -156,5 +156,9 @@ public class PlayerProfile {
     public HashMap<String, Integer> getCompletedAchievementsGrouped() {
         return completedAchievementsGrouped;
     }
+    public void clearCompletedAchievements() {
+        completedAchievements.clear();
+        completedAchievementsGrouped.clear();
+    }
 
 }

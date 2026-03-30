@@ -14,6 +14,7 @@ public class Reconfigurations implements CommandExecutor {
 
     private VagtProfiler plugin;
     private PlayerProfiles playerProfiles;
+
     public Reconfigurations(VagtProfiler plugin, PlayerProfiles playerProfiles) {
         this.plugin = plugin;
         this.playerProfiles = playerProfiles;
@@ -26,16 +27,13 @@ public class Reconfigurations implements CommandExecutor {
             sender.sendMessage("§aYou do not have permission to do that");
             return true;
         }
-        if(alias.equalsIgnoreCase("printproperties")) {
+        if (alias.equalsIgnoreCase("printproperties")) {
             sender.sendMessage("§aProperties:");
             playerProfiles.getPropertiesNames().forEach(sender::sendMessage);
             return true;
         }
-        try {
-            plugin.reload();
-        } catch (SQLException | IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        plugin.reload();
 
         sender.sendMessage("§a§lPlugin reloadet!");
 
